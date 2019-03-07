@@ -30,7 +30,7 @@ class UsersController < ApplicationController
     end
   end
 
- def iforgot
+  def iforgot
     @user = User.find_by(email: params[:user][:email])
     if @user.present?
       temp_password = SecureRandom.hex(10)
