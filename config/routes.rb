@@ -3,5 +3,9 @@ Rails.application.routes.draw do
   
   defaults format: 'json' do
     resources :users, only: [:create, :update, :index, :show]
+
+    resources :posts
+
+    root 'posts#index'
   end
 end

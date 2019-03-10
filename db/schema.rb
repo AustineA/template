@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_07_114046) do
+ActiveRecord::Schema.define(version: 2019_03_10_110050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "posts", force: :cascade do |t|
+    t.integer "price"
+    t.string "duration"
+    t.string "description"
+    t.string "title"
+    t.string "purpose"
+    t.string "use_of_property"
+    t.string "sub_type_of_property"
+    t.integer "bedrooms"
+    t.integer "bathrooms"
+    t.integer "toliets"
+    t.string "video_link"
+    t.string "street"
+    t.string "lga"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "f_name"
@@ -23,6 +44,12 @@ ActiveRecord::Schema.define(version: 2019_03_07_114046) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "account_type"
+    t.string "phone"
+    t.jsonb "address"
+    t.text "about"
+    t.string "ucid"
+    t.boolean "admin", default: false, null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end
