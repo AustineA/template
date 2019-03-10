@@ -4,10 +4,12 @@ class PostsController < ApplicationController
 
 
   def index
+    @posts = Post.all
+    render json: PostSerializer.new(@posts)
   end
 
   def show
-
+    render json: PostShowSerializer.new(@post)
   end
 
 
@@ -44,7 +46,7 @@ class PostsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_post
-      @post = post.find(params[:id])
+      @post = Post.find_by_permalink(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
