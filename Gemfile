@@ -11,8 +11,10 @@ gem 'knock'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
-gem 'fast_jsonapi'
-# gem 'jb' 
+# gem 'fast_jsonapi'
+gem 'mini_magick'
+gem 'aws-sdk-s3', require: false
+gem 'jb' 
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -5,11 +5,11 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    render json: PostSerializer.new(@posts)
+    # render :index
   end
 
   def show
-    render json: PostShowSerializer.new(@post)
+    render :show
   end
 
 
@@ -51,7 +51,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :sub_type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
+      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :sub_type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link, :images )
     end
 
 end

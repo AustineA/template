@@ -1,0 +1,10 @@
+@posts.map  do |post| 
+    { 
+      title: post.title, 
+      price: post.price, 
+      street: post.street, 
+      lga: post.lga, 
+      state: post.state ,
+      permalink: post.permalink
+    }
+end

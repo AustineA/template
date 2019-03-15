@@ -1,5 +1,8 @@
 class Post < ApplicationRecord
 	before_create :generate_permalink
+	has_many_attached :images
+	belongs_to :user
+
 
 
   def to_param
