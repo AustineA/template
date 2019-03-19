@@ -16,6 +16,7 @@ class PostsController < ApplicationController
   def create
     @user = current_user
     @post = current_user.posts.build(post_params)
+    @post.images.attach(params[:images])
       if @post.save
           render :show, status: :created
       else
@@ -51,7 +52,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :sub_type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link, :images )
+      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :sub_type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
     end
 
 end
