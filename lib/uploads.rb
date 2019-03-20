@@ -11,12 +11,13 @@ class Uploads
     end
 
     def optimize_jpeg
-      {
+     combine_options: {
         strip: true,
         'sampling-factor': '4:2:0',
         quality: '85',
         interlace: 'JPEG',
-        colorspace: 'sRGB'
+        colorspace: 'sRGB',
+        gravity: 'center'
       }
     end
 
@@ -35,6 +36,14 @@ class Uploads
     def resize_to_fit(width:, height:, blob:)
       {
         resize: "#{width}x#{height}"
+      }.merge(optimize_hash(blob))
+    end
+
+    def thumbnail(blob:)
+      combine_options: {
+        resize: "300x300^", 
+        extent: '300x300',
+        gravity: 'center'
       }.merge(optimize_hash(blob))
     end
 

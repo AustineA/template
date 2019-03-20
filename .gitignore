@@ -27,5 +27,5 @@
 
 
 #Development Tooling
-/settings.json
-/upload.js
+.vscode/settings.json
+.vscode/upload.js

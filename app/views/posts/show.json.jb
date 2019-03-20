@@ -12,19 +12,14 @@ json = {
   bathrooms: @post.bathrooms, 
   toliets: @post.toliets, 
   description: @post.description, 
-  video_link: @post.video_link
+  video_link: @post.video_link,
 }
 
 
 json[:images] = @post.images.map do |image|
-    # variation = ActiveStorage::Variation.new(Uploads.resize_to_fill_watermarked(width: 500, height: 500, blob: image.blob))
-		# t_image = ActiveStorage::Variant.new(image.blob, variation)
   {
-    # url: url_for(image.variant(resize: "800x800"))
-    url: url_for(image.variant(combine_options: { resize: "640x454", gravity: 'center', draw: 'image Over 0,0 0,0 "' + Post::WATERMARK_PATH.to_s + '"' }))
-    # url: url_for(t_image)
-    # rails_blob_url
-
+    large_url: url_for(image.variant(combine_options: Post.large_options)),
+    thumb_nail: url_for(image.variant(combine_options: Post.thumbnail_options))
   }
 end
 

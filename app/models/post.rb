@@ -1,6 +1,3 @@
-require 'uploads'
-
-
 class Post < ApplicationRecord
 	before_create :generate_permalink
 	has_many_attached :images
@@ -8,18 +5,30 @@ class Post < ApplicationRecord
 
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')
 
-	def optimized variant
-		self.images.each do |image|
-			variation = ActiveStorage::Variation.new(Uploads.resize_to_fill_watermarked(width: 500, height: 500, blob: image.blob))
-			ActiveStorage::Variant.new(image.blob, variation)
-		end
-  end
+	def self.thumbnail_options
+		{ 
+      resize: "300x300^", 
+      gravity: 'center', 
+      extent: '300x300',   
+      strip: true,
+      'sampling-factor': '4:2:0',
+      quality: '85',
+      interlace: 'JPEG',
+      colorspace: 'sRGB'
+    }
+	end
 
-	def filled
-			self.images.each do |image|
-				variation = ActiveStorage::Variation.new(Uploads.resize_to_fill(width: 500, height: 500, blob: image.blob))
-				ActiveStorage::Variant.new(image.blob, variation)
-			end
+	def self.large_options
+		{
+			resize: "640x454^", 
+			gravity: 'center',
+			draw: 'image SrcOver 0,0 0.5,0.5 "' + Post::WATERMARK_PATH.to_s + '"',
+			strip: true,
+      'sampling-factor': '4:2:0',
+      quality: '85',
+      interlace: 'JPEG',
+      colorspace: 'sRGB'
+		}
 	end
 
 
