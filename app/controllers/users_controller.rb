@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       # UserMailer.welcome(user).deliver_later
       # render json: auth_token, status: :created
     else
-        render json: user.errors, status: :unprocessable_entity
+        render json:   { message: user.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
