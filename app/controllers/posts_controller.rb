@@ -5,7 +5,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
-    # render :index
+    render :index
   end
 
   def show

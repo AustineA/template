@@ -20,7 +20,7 @@ class Post < ApplicationRecord
 
 	def self.large_options
 		{
-			resize: "640x454^", 
+			resize: "850x500^", 
 			gravity: 'center',
 			draw: 'image SrcOver 0,0 0.5,0.5 "' + Post::WATERMARK_PATH.to_s + '"',
 			strip: true,
@@ -30,7 +30,22 @@ class Post < ApplicationRecord
       colorspace: 'sRGB'
 		}
 	end
+	
+	def self.medium_options
+		{
+			resize: "320x240^", 
+			gravity: 'center',
+			strip: true,
+      'sampling-factor': '4:2:0',
+      quality: '85',
+      interlace: 'JPEG',
+			colorspace: 'sRGB'
+		}
+	end
 
+	def card_image i
+		return self.images[i].variant(combine_options: Post.medium_options).processed
+	end
 
   def to_param
 		permalink

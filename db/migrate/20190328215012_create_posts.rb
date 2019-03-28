@@ -15,6 +15,7 @@ class CreatePosts < ActiveRecord::Migration[5.2]
       t.string :street
       t.string :lga
       t.string :state
+      t.string :permalink, index: true
 
       t.timestamps
     end

@@ -19,7 +19,6 @@ json = {
 json[:images] = @post.images.map do |image|
   {
     large_url: url_for(image.variant(combine_options: Post.large_options)),
-    thumb_nail: url_for(image.variant(combine_options: Post.thumbnail_options))
   }
 end
 
