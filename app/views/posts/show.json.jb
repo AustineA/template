@@ -13,6 +13,7 @@ json = {
   toliets: @post.toliets, 
   description: @post.description, 
   video_link: @post.video_link,
+  location: "#{@post.street} #{@post.lga} #{@post.state}"
 }
 
 
