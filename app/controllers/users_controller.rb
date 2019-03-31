@@ -22,7 +22,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user.avatar.attach(params[:avatar])
+    @user = current_user
+
+    if params[:user][:avatar].present?
+      @user.avatar.purge
+      @user.avatar.attach(params[:avatar])
+    end
+
     if @user.update!(user_params)
       render :show
     else

@@ -6,3 +6,9 @@ json = {
   company: @user.company,
   address: @user.address
 }
+
+if @user.avatar.attached?
+  json[:avatar] = url_for(@user.avatar.variant(combine_options: User.avatar))
+end
+
+json

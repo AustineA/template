@@ -15,6 +15,18 @@ class User < ApplicationRecord
 		self.find_by username: username or self.find_by email: email
 	end
 
+	def self.avatar
+		{
+			resize: "500x500", 
+			gravity: 'center',
+			strip: true,
+      'sampling-factor': '4:2:0',
+      quality: '85',
+      interlace: 'JPEG',
+			colorspace: 'sRGB'
+		}
+	end
+
 	def to_token_payload
     {
       sub: id,
