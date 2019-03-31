@@ -14,4 +14,16 @@ class User < ApplicationRecord
     email = request.params["auth"] &&  request.params["auth"]["email"]
 		self.find_by username: username or self.find_by email: email
 	end
+
+	def to_token_payload
+    {
+      sub: id,
+      email: email,
+      username: username,
+      admin: admin
+    }
+  end
+
+
+
 end

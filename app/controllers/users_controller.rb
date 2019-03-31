@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :authenticate_user, only: [:update]
+  before_action :authenticate_user, only: [:update, :show]
 
   def index
     
@@ -24,10 +24,9 @@ class UsersController < ApplicationController
   def update
     @user.avatar.attach(params[:avatar])
     if @user.update!(user_params)
-      response = { message: "User updated successfully" }
-      render json: response
+      render :show
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { message: @user.errors.full_messages.to_sentence }, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +50,10 @@ class UsersController < ApplicationController
 
   private
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by_username(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:f_name, :l_name, :avatar, :username, :email, :password, :phone, :about, :account_type, address:[:state, :city, :street])
+    params.require(:user).permit(:f_name, :l_name, :avatar, :username, :email, :password, :phone, :about, :company, :account_type, address:[:state, :city, :street])
   end
 end

@@ -13,14 +13,22 @@ json = {
   toliets: @post.toliets, 
   description: @post.description, 
   video_link: @post.video_link,
-  location: "#{@post.street} #{@post.lga} #{@post.state}"
+  location: "#{@post.street} #{@post.lga} #{@post.state}, Nigeria"
 }
 
+json[:agent] = {
+  name: @post.user.f_name,
+  phone: @post.user.phone,
+  company: @post.user.company
+}
 
 json[:images] = @post.images.map do |image|
   {
     large_url: url_for(image.variant(combine_options: Post.large_options)),
   }
 end
+
+
+
 
 json
