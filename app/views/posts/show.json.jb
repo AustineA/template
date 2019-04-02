@@ -19,7 +19,8 @@ json = {
 json[:agent] = {
   name: @post.user.f_name,
   phone: @post.user.phone,
-  company: @post.user.company
+  company: @post.user.company,
+  url: "/#{@post.user.username}"
 }
 
 json[:images] = @post.images.map do |image|

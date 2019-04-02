@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose]
   before_action :authenticate_user, only: [:update, :show]
 
   def index
@@ -19,6 +19,15 @@ class UsersController < ApplicationController
 
   def show
 
+  end
+
+  def agents
+    render :agent
+  end
+
+  def purpose
+    p = params[:q]
+    @posts = @user.posts.where(purpose: p)
   end
 
   def update

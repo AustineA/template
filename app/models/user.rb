@@ -7,6 +7,12 @@ class User < ApplicationRecord
 	validates :username, presence: true, :uniqueness => true
 	validates :email, presence: true, :uniqueness => true
 
+	# scope :sale, -> { where(purpose: "SALE") }
+	# scope :rent, -> { where(purpose: "RENT") }
+	# scope :short, -> { where(purpose: "SHORT") }
+	# scope :development, -> { where(purpose: "NEW") }
+	# scope :installment, -> { where(purpose: "INSTALLMENT") }
+
 
 
   def self.from_token_request request
