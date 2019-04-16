@@ -2,8 +2,9 @@ class Post < ApplicationRecord
 	before_create :generate_permalink
 	has_many_attached :images
 	belongs_to :user
-
+	searchkick
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')
+
 
 	def self.thumbnail_options
 		{ 

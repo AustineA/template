@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
     resources :posts
     resources :posts, :path=> '', except: [:index]
+    get 'q/search', to: 'posts#search'
+
 
     root 'posts#index'
   end

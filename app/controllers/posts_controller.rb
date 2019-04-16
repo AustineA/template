@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authenticate_user, except: [:show, :index]
+  before_action :authenticate_user, except: [:show, :index, :search]
 
 
   def index
@@ -12,6 +12,26 @@ class PostsController < ApplicationController
     render :show
   end
 
+  def search
+    args = {}
+
+    args[:price] = {}
+    args[:price][:gte] = params[:min_price] if params[:min_price].present?
+    args[:price][:lte] = params[:max_price] if params[:max_price].present?
+
+
+    args[:bedrooms] = {}
+    args[:bedrooms][:gte] = params[:min_bedrooms] if params[:min_bedrooms].present?
+    args[:bedrooms][:lte] = params[:max_bedrooms] if params[:max_bedrooms].present?
+
+    args[:purpose] = params[:purpose] if params[:purpose].present?
+    args[:sub_type_of_property] = params[:sub_type_of_property] if params[:sub_type_of_property].present?
+    query = params[:q].presence || "*"
+
+    @posts =  Post.search query, fields: [:title, :street, :lga, :state],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, sub_type_of_property: {}, price: {}, bedrooms: {}}
+    render :index
+
+  end
 
   def create
     @user = current_user

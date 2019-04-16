@@ -4,7 +4,7 @@ json = {
   street: @post.street,
   lga: @post.lga,
   state: @post.state, 
-  title: @post.title, 
+  title: "#{@post.title} ––  For #{@post.purpose}", 
   purpose: @post.purpose, 
   use_of_property: @post.use_of_property, 
   sub_type_of_property: @post.sub_type_of_property, 
