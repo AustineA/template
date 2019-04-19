@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :update, :index, :show]
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'
+    get 'agents', to: 'users#search_agents'
 
     resources :posts
     resources :posts, :path=> '', except: [:index]
