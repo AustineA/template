@@ -1,0 +1,17 @@
+@post_requests.map do | request |
+  {
+    purpose: request.purpose,
+    buyer: request.user.f_name,
+    budget: request.budget,
+    type: request.type_of_property,
+    lga: request.lga,
+    state: request.state
+  }
+end
+
+
+
+# json.array! @post_requests do |request|
+#   json.(request, :purpose, :budget, :type_of_property, :lga, :state )
+#   json.buyer request.user.f_name
+# end

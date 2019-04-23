@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
 
+    resources :post_requests, except: [:index, :show]
+    get 'p/requests', to: 'post_requests#index'
+    get 'p/requests/:id', to: 'post_requests#show'
+
 
     root 'posts#index'
   end
