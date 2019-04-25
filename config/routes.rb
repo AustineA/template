@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     resources :posts
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
+    resources :posts, only: [:delete_image_attachment] do
+      member do
+        delete :delete_image_attachment
+      end
+    end
 
     resources :post_requests, except: [:index, :show]
     get 'p/requests', to: 'post_requests#index'

@@ -36,9 +36,9 @@ class PostsController < ApplicationController
   def create
     @user = current_user
     @post = current_user.posts.build(post_params)
-    @post.images.attach(params[:images])
+    @post.images.attach(params[:images]) if params[:images].present?
       if @post.save
-          render :show, status: :created
+          render :created, status: :created
       else
         render json: @post.errors, status: :unprocessable_entity
       end
@@ -62,7 +62,14 @@ class PostsController < ApplicationController
       @post.destroy
     end
 
-  
+  def delete_image_attachment
+    @delete_image = ActiveStorage::Attachment.find(params[:id])
+    if @delete_image.purge
+      render json: "Deleted"
+    else
+      render json: @delete_image.errors
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -72,7 +79,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :sub_type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
+      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
     end
 
 end

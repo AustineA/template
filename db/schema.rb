@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_22_153033) do
+ActiveRecord::Schema.define(version: 2019_04_24_141855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2019_04_22_153033) do
     t.string "title"
     t.string "purpose"
     t.string "use_of_property"
-    t.string "sub_type_of_property"
+    t.string "type_of_property"
     t.integer "bedrooms"
     t.integer "bathrooms"
     t.integer "toliets"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_04_22_153033) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "area"
     t.index ["permalink"], name: "index_posts_on_permalink"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
