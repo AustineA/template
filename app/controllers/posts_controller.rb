@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
-  before_action :authenticate_user, except: [:show, :index, :search]
+  before_action :authenticate_user, except: [:show, :index, :search, :delete_image_attachment]
 
 
   def index
@@ -47,10 +47,9 @@ class PostsController < ApplicationController
 
 
     def update
-
+      @post.images.attach(params[:images]) if params[:images].present?
         if @post.update!(post_params)
           render :show
-
         else
           render json: @post.errors, status: :unprocessable_entity
         end
@@ -79,7 +78,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:price, :duration, :street,:lga,:state, :title, :purpose, :use_of_property, :type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
+      params.require(:post).permit(:price, :duration, :street,:lga,:state,:area, :title, :purpose, :use_of_property, :type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link )
     end
 
 end
