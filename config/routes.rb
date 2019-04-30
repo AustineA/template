@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'
     get 'agents', to: 'users#search_agents'
+    get 'verify/user', to: 'users#verify_user'
 
     resources :posts
     resources :posts, :path=> '', except: [:index]

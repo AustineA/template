@@ -1,11 +1,11 @@
 @post_requests.map do | request |
   {
     purpose: request.purpose,
-    buyer: request.user.f_name,
     budget: request.budget,
     type: request.type_of_property,
-    lga: request.lga,
-    state: request.state
+    location: " #{request.lga}, #{request.state} ",
+    created_at: request.created_at.strftime( "%e %b. %y"),
+    permalink: "p/requests/#{request.id}"
   }
 end
 

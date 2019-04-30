@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose]
-  before_action :authenticate_user, only: [:update, :show]
+  before_action :authenticate_user, only: [:update, :show, :verify_user]
 
   def index
     
@@ -69,9 +69,15 @@ class UsersController < ApplicationController
     end
   end
 
-
-
-
+  def verify_user
+    if current_user
+      response = {status: true}
+      render json: response, status: :ok
+    else
+      response = {status: false}
+      render json: response, status: :ok
+    end
+  end
 
   private
   def set_user

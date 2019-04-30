@@ -25,10 +25,10 @@ class PostsController < ApplicationController
     args[:bedrooms][:lte] = params[:max_bedrooms] if params[:max_bedrooms].present?
 
     args[:purpose] = params[:purpose] if params[:purpose].present?
-    args[:sub_type_of_property] = params[:sub_type_of_property] if params[:sub_type_of_property].present?
+    args[:type_of_property] = params[:type_of_property] if params[:type_of_property].present?
     query = params[:q].presence || "*"
 
-    @posts =  Post.search query, fields: [:title, :street, :lga, :state],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, sub_type_of_property: {}, price: {}, bedrooms: {}}
+    @posts =  Post.search query, fields: [:title, :street, :lga, :state],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, price: {}, bedrooms: {}}
     render :index
 
   end
