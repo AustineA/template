@@ -7,6 +7,7 @@ json = {
   title: @post.title, 
   purpose: @post.purpose, 
   use_of_property: @post.use_of_property, 
+  square_meters: @post.square_meters,
   type_of_property: @post.type_of_property, 
   bedrooms: @post.bedrooms, 
   bathrooms: @post.bathrooms, 
