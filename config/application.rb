@@ -24,9 +24,22 @@ module TdsBackend
     config.api_only = true
 
     config.middleware.insert_before 0, Rack::Cors do
+      # allow do
+      #   origins '*'
+      #   resource '*', :headers => :any, :methods => :any
+      # end
       allow do
-        origins '*'
-        resource '*', :headers => :any, :methods => :any
+        origins '2dotsproperties.com'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
+  
+      allow do
+        origins 'localhost:3500'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head]
       end
     end
   end
