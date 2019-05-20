@@ -16,15 +16,19 @@ json = {
   video_link: @post.video_link,
   location: "#{@post.street} #{@post.lga} #{@post.state}, Nigeria",
   permalink: @post.permalink,
-  area: @post.area
+  area: @post.area,
+  reference: @post.reference_id
 }
 
-json[:agent] = {
-  name: @post.user.f_name,
-  phone: @post.user.phone,
-  company: @post.user.company,
-  url: "/#{@post.user.username}"
-}
+if @post.user.address
+  json[:agent] = {
+    name: @post.user.f_name,
+    phone: @post.user.phone,
+    company: @post.user.company,
+    url: "/#{@post.user.username}",
+    address: "#{@post.user.address["street"]}, #{@post.user.address["city"]}, #{@post.user.address["state"]}."
+  }
+end
 
 json[:images] = @post.images.map do |image|
   {

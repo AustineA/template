@@ -1,5 +1,6 @@
 class Post < ApplicationRecord
 	before_create :generate_permalink
+	after_create :generate_reference
 	has_many_attached :images
 	belongs_to :user
 	searchkick
@@ -65,4 +66,10 @@ class Post < ApplicationRecord
 		end
 
 	end
+
+
+	def generate_reference
+  	self.update_attributes(reference_id: "2DTS-#{rand(36**12).to_s(28).upcase}")
+	end
+
 end
