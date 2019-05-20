@@ -17,8 +17,14 @@ json = {
   location: "#{@post.street} #{@post.lga} #{@post.state}, Nigeria",
   permalink: @post.permalink,
   area: @post.area,
-  reference: @post.reference_id
+  reference: @post.reference_id,
+  created_at: @post.created_at.strftime( "%e %b. %y"),
+  updated_at: @post.updated_at.strftime( "%e %b. %y")
 }
+
+if @post.user.avatar.attached?
+   json[:agent_avatar] = url_for(@post.user.avatar.variant(combine_options: User.avatar))
+end
 
 if @post.user.address
   json[:agent] = {
@@ -29,6 +35,7 @@ if @post.user.address
     address: "#{@post.user.address["street"]}, #{@post.user.address["city"]}, #{@post.user.address["state"]}."
   }
 end
+
 
 json[:images] = @post.images.map do |image|
   {
