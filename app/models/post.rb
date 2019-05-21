@@ -69,7 +69,7 @@ class Post < ApplicationRecord
 
 
 	def generate_reference
-  	self.update_attributes(reference_id: "2DTS-#{rand(36**12).to_s(28).upcase}")
+  	self.update_attributes(reference_id: "#{rand(5**12).to_s(28).upcase}")
 	end
 
 end
