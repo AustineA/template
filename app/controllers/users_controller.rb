@@ -18,10 +18,11 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    @agents_only = User.check_account_type @user
   end
 
   def agents
+    @agents_only = User.check_account_type @user
     render :agent
   end
 

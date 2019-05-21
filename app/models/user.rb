@@ -42,6 +42,15 @@ class User < ApplicationRecord
     }
   end
 
-
-
+	def self.check_account_type  user
+		account_type = user.account_type
+		case 
+			when account_type == "INDIVIDUAL"
+				return false
+			when account_type == "PROPERTY_OWNER"
+				return false
+			else
+				return true			
+		end
+	end
 end
