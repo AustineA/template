@@ -2,7 +2,7 @@
 lock "~> 3.11.0"
 
 set :application, "2dots"
-set :repo_url, "git@github.com:AustineA/2dots.git"
+set :repo_url, "git@github.com:AustineA/tds-backend.git"
 
 # Deploy to the user's home directory
 set :deploy_to, "/home/deploy/#{fetch :application}"
