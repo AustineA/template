@@ -3,13 +3,10 @@ json = {
   l_name: @user.l_name,
   phone:  @user.phone,
   account_type: @user.account_type,
-  address: @user.address
+  address: @user.address,
+  company: @user.company,
+  about: @user.about
 }
-
-if @agents_only
-  json[:company] = @user.company
-  json[:about] = @user.about
-end
 
 if @user.avatar.attached?
   json[:avatar] = url_for(@user.avatar.variant(combine_options: User.avatar))

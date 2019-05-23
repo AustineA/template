@@ -1,0 +1,2 @@
+render partial: 'users/landing', collection: @agents, as: :agent
+ 

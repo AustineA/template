@@ -1,0 +1,9 @@
+@posts.map do |post|
+  {
+    location: "#{post.lga}, #{post.state}",
+    title: post.title,
+    price: post.price,
+    permalink: post.permalink,
+    card_thumbnail: url_for(post.images.first.variant(combine_options: Post.medium_options))
+  }
+end
