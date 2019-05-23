@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_15_052930) do
+ActiveRecord::Schema.define(version: 2019_05_23_144536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_05_15_052930) do
     t.string "ucid"
     t.boolean "admin", default: false, null: false
     t.string "company"
+    t.string "country_code"
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end

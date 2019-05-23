@@ -31,6 +31,7 @@ if @post.user.address
     name: @post.user.f_name,
     phone: @post.user.phone,
     company: @post.user.company,
+    account_type: @post.user.account_type,
     url: "/#{@post.user.username}",
     address: "#{@post.user.address["street"]}, #{@post.user.address["city"]}, #{@post.user.address["state"]}."
   }
