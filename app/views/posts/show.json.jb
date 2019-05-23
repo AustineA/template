@@ -30,6 +30,7 @@ if @post.user.address
   json[:agent] = {
     name: @post.user.f_name,
     phone: @post.user.phone,
+    country_code: @post.user.country_code,
     company: @post.user.company,
     account_type: @post.user.account_type,
     url: "/#{@post.user.username}",
