@@ -16,6 +16,7 @@ gem 'aws-sdk-s3', require: false
 gem 'jbuilder' 
 gem 'jb'
 gem 'searchkick'
+gem 'will_paginate', '~> 3.1', '>= 3.1.7'
 
 
 group :development, :test do

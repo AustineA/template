@@ -1,1 +1,25 @@
-render partial: 'posts/post', collection: @posts, as: :post
+p = @posts.reject {|p| p.images.attached? == false}.map do |post|
+      {
+        price: post.price,
+        title: post.title,
+        location: "#{post.lga}, #{post.state}",
+        permalink: post.permalink,
+        type_of_property: post.type_of_property,
+        purpose: post.purpose,
+        description: post.description,
+        card_thumbnail: url_for(post.images.first.variant(combine_options: Post.medium_options)) 
+      }
+    end
+
+
+
+  {
+    links: {
+      current_page:  "/?page=#{@posts.current_page}",
+      per_page: @posts.per_page,
+      total_entries: @posts.total_entries,
+      next_page: "/?page=#{@posts.next_page}",
+      previous_page: "/?page=#{@posts.previous_page}",
+    },
+    posts: p
+  }
