@@ -1,2 +1,7 @@
-render partial: 'users/landing', collection: @agents, as: :agent
- 
+@agents.reject {|a| a.avatar.attached? == false}.map do |agent|
+  {
+    company: agent.company,
+    permalink: agent.username,
+    avatar: url_for(agent.avatar.variant(combine_options: User.avatar))
+  }
+end

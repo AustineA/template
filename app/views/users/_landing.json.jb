@@ -1,8 +1,0 @@
-json = {
-    company: agent.company,
-    permalink: agent.username
-  }
-
-  json[:avatar] = url_for(agent.avatar.variant(combine_options: User.avatar)) if agent.avatar.attached?
-  
-json

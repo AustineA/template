@@ -1,0 +1,16 @@
+a = url_for(@post_request.user.avatar.variant(combine_options: User.avatar)) if @post_request.user.avatar.attached?
+
+json = {
+  title: "Looking for #{@post_request.type_of_property} to #{@post_request.purpose}",
+  location: "In #{@post_request.area if @post_request.area}, #{@post_request.lga}, #{@post_request.state} ",
+  budget: @post_request.budget,
+  description: @post_request.description
+}
+
+json[:buyer] = {
+  name: "#{@post_request.user.f_name} #{@post_request.user.l_name}" ,
+  phone: @post_request.user.phone,
+  avatar: a
+}
+
+json

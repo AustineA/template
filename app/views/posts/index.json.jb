@@ -15,7 +15,7 @@ p = @posts.reject {|p| p.images.attached? == false}.map do |post|
 
   {
     links: {
-      current_page:  "/?page=#{@posts.current_page}",
+      current_page:  @posts.current_page,
       per_page: @posts.per_page,
       total_entries: @posts.total_entries,
       next_page: "/?page=#{@posts.next_page}",

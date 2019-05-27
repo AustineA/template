@@ -18,16 +18,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @agents_only = User.check_account_type @user
   end
 
   def agents
-    @agents_only = User.check_account_type @user
     render :agent
   end
 
   def search_agents
-    only_agents = User.where.not(account_type: ["PROPERTY_OWNER", "INDIVIDUAL"])
+    only_agents = User.where.not(account_type: ["PROPERTY_OWNER", "INDIVIDUAL"], company: false)
     if query = params[:q].presence 
       @agents = User.search query, fields: [:company, :f_name, :l_name, :email, :phone], misspellings: {edit_distance: 1, below: 2}, where: { account_type: {not: "INDIVIDUAL"} } 
     else
