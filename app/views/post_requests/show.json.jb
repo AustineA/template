@@ -10,6 +10,7 @@ json = {
 json[:buyer] = {
   name: "#{@post_request.user.f_name} #{@post_request.user.l_name}" ,
   phone: @post_request.user.phone,
+  url: "/#{@post_request.user.username}",
   avatar: a
 }
 

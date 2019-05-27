@@ -40,6 +40,6 @@ class PostRequestsController < ApplicationController
     end
   
     def post_request_params
-      params.require(:post_request).permit(:purpose, :budget, :type_of_property, :state, :lga, :area, :description, )
+      params.require(:post_request).permit(:purpose, :budget, :type_of_property, :state, :lga, :area, :description, :bathrooms )
     end
 end
