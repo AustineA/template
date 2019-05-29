@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
 	before_create :generate_permalink
-	after_create :generate_reference
+	after_create :generate_reference, :assign_tags
 	has_many_attached :images
 	belongs_to :user
 	searchkick
@@ -39,7 +39,7 @@ class Post < ApplicationRecord
 			gravity: 'center',
 			strip: true,
       'sampling-factor': '4:2:0',
-      quality: '85',
+      quality: '35',
       interlace: 'JPEG',
 			colorspace: 'sRGB'
 		}
@@ -72,4 +72,7 @@ class Post < ApplicationRecord
   	self.update_attributes(reference_id: "#{rand(5**12).to_s(28).upcase}")
 	end
 
+	def assign_tags
+		self.update_attributes(tags: "#{self.state}, #{self.lga}, #{self.area}")
+	end
 end

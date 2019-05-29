@@ -28,7 +28,7 @@ class PostsController < ApplicationController
     args[:type_of_property] = params[:type_of_property] if params[:type_of_property].present?
     query = params[:q].presence || "*"
 
-    @posts =  Post.search query, fields: [:title, :street, :lga, :state, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, price: {}, bedrooms: {}}, page: params[:page], per_page: 12
+    @posts =  Post.search query, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, price: {}, bedrooms: {}}, page: params[:page], per_page: 12
     render :index
 
   end
