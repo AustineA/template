@@ -24,11 +24,19 @@ class PostsController < ApplicationController
     args[:bedrooms][:gte] = params[:min_bedrooms] if params[:min_bedrooms].present?
     args[:bedrooms][:lte] = params[:max_bedrooms] if params[:max_bedrooms].present?
 
+    args[:bathrooms] = {}
+    args[:bathrooms][:gte] = params[:min_bathrooms] if params[:min_bathrooms].present?
+    args[:bathrooms][:lte] = params[:max_bathrooms] if params[:max_bathrooms].present?
+
     args[:purpose] = params[:purpose] if params[:purpose].present?
+
     args[:type_of_property] = params[:type_of_property] if params[:type_of_property].present?
+
+    args[:use_of_property] = params[:use_of_property] if params[:use_of_property].present?
+
     query = params[:q].presence || "*"
 
-    @posts =  Post.search query, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, price: {}, bedrooms: {}}, page: params[:page], per_page: 12
+    @posts =  Post.search query, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, use_of_property: {}, price: {}, bedrooms: {}, bathrooms: {}}, page: params[:page], per_page: 12
     render :index
 
   end
