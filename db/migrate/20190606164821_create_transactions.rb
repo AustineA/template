@@ -5,7 +5,7 @@ class CreateTransactions < ActiveRecord::Migration[5.2]
       t.integer :amount, default: 0
       t.string :transaction_for
       t.integer :user_id
-      t.string :duration, default: 1
+      t.integer :duration, default: 1
       t.string :status, default: "PENDING"
 
       t.timestamps

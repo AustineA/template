@@ -5,7 +5,7 @@ one:
   amount: 1
   transaction_for: MyString
   user_id: 1
-  duration: MyString
+  duration: 1
   status: MyString
 
 two:
@@ -13,5 +13,5 @@ two:
   amount: 1
   transaction_for: MyString
   user_id: 1
-  duration: MyString
+  duration: 1
   status: MyString
