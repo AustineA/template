@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_211545) do
+ActiveRecord::Schema.define(version: 2019_06_06_154356) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,7 +89,21 @@ ActiveRecord::Schema.define(version: 2019_06_05_211545) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "max_post", default: 3
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "ref_no"
+    t.integer "amount", default: 0
+    t.string "transaction_for"
+    t.integer "user_id"
+    t.string "duration", default: "1"
+    t.string "status", default: "PENDING"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ref_no"], name: "index_transactions_on_ref_no"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -108,6 +122,7 @@ ActiveRecord::Schema.define(version: 2019_06_05_211545) do
     t.boolean "admin", default: false, null: false
     t.string "company"
     t.string "country_code"
+    t.integer "post_count", default: 0
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end

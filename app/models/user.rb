@@ -2,6 +2,7 @@ class User < ApplicationRecord
 	has_secure_password
 	has_many :posts, dependent: :destroy
 	has_many :post_requests
+	has_many :transactions
 	has_one :subscription
 	has_one_attached :avatar
 	searchkick
@@ -54,4 +55,15 @@ class User < ApplicationRecord
 				return true			
 		end
 	end
+
+
+	def subscribed?
+    if self.subscription.plan != "FREE"
+      return true
+    else
+      return false
+    end
+	end
+	
+
 end
