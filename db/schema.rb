@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_28_143429) do
+ActiveRecord::Schema.define(version: 2019_06_05_211545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,19 @@ ActiveRecord::Schema.define(version: 2019_05_28_143429) do
     t.index ["permalink"], name: "index_posts_on_permalink"
     t.index ["reference_id"], name: "index_posts_on_reference_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.string "plan", default: "FREE"
+    t.integer "amount", default: 0
+    t.datetime "expiring_date"
+    t.datetime "start_date"
+    t.integer "boost", default: 0
+    t.integer "priorities", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
