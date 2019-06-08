@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get 'agents', to: 'users#search_agents'
     get 'verify/user', to: 'users#verify_user'
 
+    resources :transactions
+
     resources :posts
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
@@ -22,7 +24,6 @@ Rails.application.routes.draw do
     get 'p/requests/:id', to: 'post_requests#show'
     get 'p/requests', to: 'post_requests#search'
 
-    resources :transactions
 
     root 'posts#index'
   end

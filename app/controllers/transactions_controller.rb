@@ -4,17 +4,19 @@ class TransactionsController < ApplicationController
   
     def index
       if current_user.admin
-        @transactions = Transaction.paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
+       return @transactions = Transaction.paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
       else
-        @transactions = current_user.transactions.paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
+        return @transactions = current_user.transactions.paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
       end
+
+      render :index
     end
   
     def show
     end
   
     def create
-      @transaction = Transaction.create(transaction_params)
+      @transaction = current_user.transactions.build(transaction_params)
   
       if @transaction.save
         render :show, status: :created
