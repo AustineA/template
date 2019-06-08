@@ -10,6 +10,17 @@ class PostRequestsController < ApplicationController
     def show
     end
   
+    def search
+      args = {}
+
+      args[:state] = params[:state] if params[:state].present?
+      args[:lga] = params[:lga] if params[:lga].present?
+
+      query = params[:q].presence || "*"
+
+      @post_requests =  PostRequest.search query, fields: [:state, :lga], where: args, aggs: { state: {}, lga: {}}, page: params[:page], per_page: 12
+      render :index
+    end
     def create
       @post_request = current_user.post_requests.build(post_request_params)
   

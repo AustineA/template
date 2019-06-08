@@ -18,9 +18,11 @@ Rails.application.routes.draw do
     end
 
     resources :post_requests, except: [:index, :show]
-    get 'p/requests', to: 'post_requests#index'
+    # get 'p/requests', to: 'post_requests#index'
     get 'p/requests/:id', to: 'post_requests#show'
+    get 'p/requests', to: 'post_requests#search'
 
+    resources :transactions
 
     root 'posts#index'
   end
