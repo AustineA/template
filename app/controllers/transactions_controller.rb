@@ -45,6 +45,6 @@ class TransactionsController < ApplicationController
     end
   
     def transaction_params
-      params.require(:transaction).permit(:ref_no, :amount, :transactioon_for, :duration, :status)
+      params.require(:transaction).permit(:ref_no, :amount, :transaction_for, :duration, :status)
     end
 end

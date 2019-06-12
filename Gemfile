@@ -17,6 +17,7 @@ gem 'jbuilder'
 gem 'jb'
 gem 'searchkick'
 gem 'will_paginate', '~> 3.1', '>= 3.1.7'
+gem 'httparty', '~> 0.13.7'
 
 
 group :development, :test do

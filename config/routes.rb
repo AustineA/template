@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
     resources :transactions
 
+    get 'subscribe/:id', to: 'subscriptions#subscriber'
+
     resources :posts
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
