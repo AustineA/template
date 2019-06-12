@@ -15,12 +15,15 @@ class PostRequestsController < ApplicationController
 
       args[:state] = params[:state] if params[:state].present?
       args[:lga] = params[:lga] if params[:lga].present?
+      args[:user_id] = User.find_by_username(params[:username]).id if params[:username].present?
 
       query = params[:q].presence || "*"
 
-      @post_requests =  PostRequest.search query, fields: [:state, :lga], where: args, aggs: { state: {}, lga: {}}, page: params[:page], per_page: 12
+      @post_requests =  PostRequest.search query, fields: [:state, :lga], where: args, aggs: { state: {}, lga: {}, user_id: {}}, page: params[:page], per_page: 12
       render :index
     end
+
+
     def create
       @post_request = current_user.post_requests.build(post_request_params)
   

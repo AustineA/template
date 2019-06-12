@@ -1,4 +1,4 @@
-@post_requests.map do | request |
+r = @post_requests.map do | request |
   {
     purpose: request.purpose,
     budget: request.budget,
@@ -10,8 +10,13 @@
 end
 
 
-
-# json.array! @post_requests do |request|
-#   json.(request, :purpose, :budget, :type_of_property, :lga, :state )
-#   json.buyer request.user.f_name
-# end
+{
+    links: {
+      current_page:  @post_requests.current_page,
+      per_page: @post_requests.per_page,
+      total_entries: @post_requests.total_entries,
+      next_page: "/?page=#{@post_requests.next_page}",
+      previous_page: "/?page=#{@post_requests.previous_page}",
+    },
+    requests: r
+}
