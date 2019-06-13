@@ -2,7 +2,7 @@ require 'httparty'
 
 
 class SubscriptionsController < ApplicationController
-  # include HTTParty
+  before_action :authenticate_user
 
   def subscriber
     transaction = Transaction.find_by_ref_no(params[:id])
@@ -23,6 +23,10 @@ class SubscriptionsController < ApplicationController
 
   end
 
+  def index
+    @subscription = current_user.subscription
+    render json: index
+  end
 
 
   private

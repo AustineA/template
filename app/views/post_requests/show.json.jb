@@ -4,7 +4,8 @@ json = {
   title: "Looking for #{@post_request.type_of_property} to #{@post_request.purpose}",
   location: "In #{@post_request.area if @post_request.area}, #{@post_request.lga}, #{@post_request.state} ",
   budget: @post_request.budget,
-  description: @post_request.description
+  description: @post_request.description,
+  permalink:"p/requests/#{@post_request.id}"
 }
 
 json[:buyer] = {
