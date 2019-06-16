@@ -25,7 +25,8 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscription = current_user.subscription
-    render json: index
+    @transactions = current_user.transactions
+    render :index
   end
 
 
@@ -35,11 +36,11 @@ class SubscriptionsController < ApplicationController
     ref_no = transaction.ref_no
     price = 5000
     duration = transaction.duration
-    due_amount = price * duration
+    due_amount = total_due price, duration
     user = transaction.user
    
     if verify_transaction due_amount, ref_no
-      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + 30.day, start_date: Time.now, boost: 10, priorities: 15, max_post: 1000)
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*10, priorities: duration*15, max_post: duration*1000)
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
@@ -53,11 +54,11 @@ class SubscriptionsController < ApplicationController
     ref_no = transaction.ref_no
     price = 12500
     duration = transaction.duration
-    due_amount = price * duration
+    due_amount = total_due price, duration
     user = transaction.user
    
     if verify_transaction due_amount, ref_no
-      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + 30.day, start_date: Time.now, boost: 20, priorities: 40, max_post: 1000)
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*20, priorities: duration*40, max_post: duration*1000)
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
@@ -71,11 +72,11 @@ class SubscriptionsController < ApplicationController
     ref_no = transaction.ref_no
     price = 20000
     duration = transaction.duration
-    due_amount = price * duration
+    due_amount = total_due price, duration 
     user = transaction.user
    
     if verify_transaction due_amount, ref_no
-      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + 30.day, start_date: Time.now, boost: 30, priorities: 60, max_post: 1000)
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*30, priorities: duration*60, max_post: duration*1000)
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
@@ -85,7 +86,18 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def total_due price, duration
+    if duration >= 6 && duration < 12
+      return (price * duration) - ((price * duration) * 5/100)
 
+    elsif duration >= 12
+      return (price * duration) - ((price * duration) * 10/100)
+  
+    else
+      return price * duration
+    end
+  end
+  
   def verify_transaction due_amount, ref_no
 
     response = HTTParty.get("https://api.paystack.co/transaction/verify/#{ref_no}", 

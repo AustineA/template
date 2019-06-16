@@ -1,0 +1,19 @@
+t = @transactions.map do | transaction |
+  {
+    plan: transaction.transaction_for,
+    amount: transaction.amount,
+    duration: transaction.duration,
+    status: transaction.status,
+    date: transaction.created_at.strftime("%e %b. %y")
+  }
+end
+
+
+json = {
+  plan: @subscription.plan,
+  expiring_date: @subscription.expiring_date.strftime("%e %b. %y"),
+  boost: @subscription.boost,
+  priorities: @subscription.priorities,
+  max_post: @subscription.max_post,
+  transactions: t
+}

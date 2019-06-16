@@ -4,7 +4,7 @@ r = @post_requests.map do | request |
     budget: request.budget,
     type: request.type_of_property,
     location: " #{request.lga}, #{request.state} ",
-    created_at: request.created_at.strftime( "%e %b. %y"),
+    created_at: request.created_at.strftime("%e %b. %y"),
     permalink: "p/requests/#{request.id}"
   }
 end

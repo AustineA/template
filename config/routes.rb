@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :transactions
 
     get 'subscribe/:id', to: 'subscriptions#subscriber'
+    get 'my-subscription', to: 'subscriptions#index'
 
     resources :posts
     resources :posts, :path=> '', except: [:index]
