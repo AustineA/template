@@ -6,6 +6,7 @@ json = {
   budget: @post_request.budget,
   bedrooms: @post_request.bedrooms,
   purpose: @post_request.purpose,
+  type_of_property: @post_request.type_of_property,
   state: @post_request.state,
   lga: @post_request.lga,
   description: @post_request.description,
