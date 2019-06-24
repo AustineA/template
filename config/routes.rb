@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get 'subscribe/:id', to: 'subscriptions#subscriber'
     get 'my-subscription', to: 'subscriptions#index'
 
+    resources :banner_ads
+
     resources :posts
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'

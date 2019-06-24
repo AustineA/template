@@ -3,6 +3,7 @@ class User < ApplicationRecord
 	has_many :posts, dependent: :destroy
 	has_many :post_requests
 	has_many :transactions
+	has_many :banner_ads
 	has_one :subscription
 	has_one_attached :avatar
 	searchkick

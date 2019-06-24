@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_20_043510) do
+ActiveRecord::Schema.define(version: 2019_06_24_044704) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,21 @@ ActiveRecord::Schema.define(version: 2019_06_20_043510) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "banner_ads", force: :cascade do |t|
+    t.string "ref_no"
+    t.string "status", default: "INACTIVE"
+    t.datetime "expiring_date"
+    t.string "url"
+    t.string "banner_type"
+    t.integer "duration", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.integer "amount", default: 0
+    t.index ["ref_no"], name: "index_banner_ads_on_ref_no"
+    t.index ["user_id"], name: "index_banner_ads_on_user_id"
   end
 
   create_table "post_requests", force: :cascade do |t|
