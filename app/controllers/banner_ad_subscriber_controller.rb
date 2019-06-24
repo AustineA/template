@@ -5,7 +5,7 @@ before_action :authenticate_user
 
   def subscriber
     banner_ad = BannerAd.find_by_ref_no(params[:id])
-    type = banner_ad.type
+    type = banner_ad.banner_type
     amount = banner_ad.amount
 
 		case 
@@ -34,9 +34,7 @@ before_action :authenticate_user
    
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
-      if banner_subscription.save
-        render json: { status: "banner ads created"}
-      end
+      render json: { status: "banner ads created"}
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end
@@ -85,6 +83,8 @@ before_action :authenticate_user
     paid = response['data']['amount']/100
     status = response['data']['status']
     if paid == due_amount && status == 'success'
+      puts "#{status} from paystack"
+      puts "#{paid} Amount paid from paystack"
       return true
     end
   end

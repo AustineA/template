@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get 'subscribe/:id', to: 'subscriptions#subscriber'
     get 'my-subscription', to: 'subscriptions#index'
 
+    get 'subscribe-banner/:id', to: 'banner_ad_subscriber#subscriber'
+
     resources :banner_ads
 
     resources :posts
