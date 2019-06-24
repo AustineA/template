@@ -46,6 +46,6 @@ class BannerAdsController < ApplicationController
     end
   
     def banner_ad_params
-      params.require(:banner_ad).permit(:url, :banner_type, :duration, :sidebar_image, :home_image, :listing_image)
+      params.require(:banner_ad).permit(:amount, :url, :banner_type, :duration, :sidebar_image, :home_image, :home_mobile_image, :listing_image, :listing_mobile_image)
     end
 end

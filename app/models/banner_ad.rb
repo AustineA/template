@@ -1,7 +1,9 @@
 class BannerAd < ApplicationRecord
 	has_one_attached :sidebar_image
-	has_one_attached :home_image
-	has_one_attached :listing_image
+  has_one_attached :home_image
+  has_one_attached :home_mobile_image
+  has_one_attached :listing_image
+  has_one_attached :listing_mobile_image
   belongs_to :user
   after_create :generate_reference
 
