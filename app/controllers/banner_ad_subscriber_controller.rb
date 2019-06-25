@@ -1,7 +1,7 @@
 require 'httparty'
 
 class BannerAdSubscriberController < ApplicationController
-before_action :authenticate_user
+  before_action :authenticate_user
 
   def subscriber
     banner_ad = BannerAd.find_by_ref_no(params[:id])
@@ -37,7 +37,7 @@ before_action :authenticate_user
       render json: { status: "banner ads created"}
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
-    ends
+    end
   end
 
 
