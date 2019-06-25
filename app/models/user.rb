@@ -4,6 +4,7 @@ class User < ApplicationRecord
 	has_many :post_requests
 	has_many :transactions
 	has_many :banner_ads
+	has_many :brands
 	has_one :subscription
 	has_one_attached :avatar
 	searchkick

@@ -10,9 +10,9 @@ before_action :authenticate_user
 
 		case 
       when type == "SMALL"
-        small_medium banner_ad
+        small banner_ad
 			when type == "MEDIUM"
-        small_medium banner_ad
+        medium banner_ad
       when type == "LARGE"
         large banner_ad
 			else
@@ -25,7 +25,23 @@ before_action :authenticate_user
 
   private
 
-  def small_medium banner_ad
+  def small banner_ad
+    ref_no = banner_ad.ref_no
+    price = 130000
+    duration = banner_ad.duration
+    due_amount = total_due price, duration
+
+   
+    if verify_transaction due_amount, ref_no
+      banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
+      render json: { status: "banner ads created"}
+    else
+      render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
+    ends
+  end
+
+
+  def medium banner_ad
     ref_no = banner_ad.ref_no
     price = 150000
     duration = banner_ad.duration
@@ -50,9 +66,7 @@ before_action :authenticate_user
    
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
-      if banner_subscription.save
-        render json: { status: "banner ad created"}
-      end
+      render json: { status: "banner ad created"}
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end

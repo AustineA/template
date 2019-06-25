@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_24_044704) do
+ActiveRecord::Schema.define(version: 2019_06_25_040951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,20 @@ ActiveRecord::Schema.define(version: 2019_06_24_044704) do
     t.integer "amount", default: 0
     t.index ["ref_no"], name: "index_banner_ads_on_ref_no"
     t.index ["user_id"], name: "index_banner_ads_on_user_id"
+  end
+
+  create_table "brands", force: :cascade do |t|
+    t.string "ref_no"
+    t.string "status", default: "INACTIVE"
+    t.string "url"
+    t.datetime "expiring_date"
+    t.integer "duration", default: 1
+    t.integer "user_id"
+    t.string "amount", default: "0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ref_no"], name: "index_brands_on_ref_no"
+    t.index ["user_id"], name: "index_brands_on_user_id"
   end
 
   create_table "post_requests", force: :cascade do |t|

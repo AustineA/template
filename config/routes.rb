@@ -14,8 +14,10 @@ Rails.application.routes.draw do
     get 'my-subscription', to: 'subscriptions#index'
 
     get 'subscribe-banner/:id', to: 'banner_ad_subscriber#subscriber'
+    get 'subscribe-brand/:id', to: 'brand_subscriber#subscriber'
 
     resources :banner_ads
+    resources :brands
 
     resources :posts
     resources :posts, :path=> '', except: [:index]
