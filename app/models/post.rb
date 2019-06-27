@@ -75,4 +75,16 @@ class Post < ApplicationRecord
 	def assign_tags
 		self.update_attributes(tags: "#{self.state}, #{self.lga}, #{self.area}")
 	end
+
+
+	def provide_correct_create_counter_2
+    User.increment_counter(:second_friends_count, another_user.id)
+  end
+
+  def provide_correct_destroy_counter_2
+    User.decrement_counter(:second_friends_count, another_user.id)
+	end
+	
 end
+
+		

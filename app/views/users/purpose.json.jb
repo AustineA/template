@@ -1,9 +1,22 @@
-@posts.map do |post|
+p = @posts.map do |post|
   {
     location: "#{post.lga}, #{post.state}",
     title: post.title,
     price: post.price,
+    boost: post.boost,
+    priority: post.priority,
     permalink: post.permalink,
     card_thumbnail: url_for(post.images.first.variant(combine_options: Post.medium_options))
   }
 end
+
+{
+  links: {
+    current_page:  @posts.current_page,
+    per_page: @posts.per_page,
+    total_entries: @posts.total_entries,
+    next_page: "/?page=#{@posts.next_page}",
+    previous_page: "/?page=#{@posts.previous_page}",
+  },
+  posts: p
+}

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_25_040951) do
+ActiveRecord::Schema.define(version: 2019_06_26_051740) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,6 +103,9 @@ ActiveRecord::Schema.define(version: 2019_06_25_040951) do
     t.string "square_meters"
     t.string "reference_id"
     t.string "tags"
+    t.integer "boost", default: 0
+    t.integer "priority", default: 0
+    t.integer "score", default: 0
     t.index ["permalink"], name: "index_posts_on_permalink"
     t.index ["reference_id"], name: "index_posts_on_reference_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -152,6 +155,9 @@ ActiveRecord::Schema.define(version: 2019_06_25_040951) do
     t.string "company"
     t.string "country_code"
     t.integer "posts_count", default: 0
+    t.integer "boost_count", default: 0
+    t.integer "priority_count", default: 0
+    t.integer "post_requests_count", default: 0
     t.index ["email"], name: "index_users_on_email"
     t.index ["username"], name: "index_users_on_username"
   end

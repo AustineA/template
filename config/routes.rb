@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'promote/boost'
+  get 'promote/priority'
   post 'user_token' => 'user_token#create'
   
   defaults format: 'json' do
@@ -12,6 +14,8 @@ Rails.application.routes.draw do
 
     get 'subscribe/:id', to: 'subscriptions#subscriber'
     get 'my-subscription', to: 'subscriptions#index'
+
+    post 'promote/:id', to: 'promote#promoter'
 
     get 'subscribe-banner/:id', to: 'banner_ad_subscriber#subscriber'
     get 'subscribe-brand/:id', to: 'brand_subscriber#subscriber'
