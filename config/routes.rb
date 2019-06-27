@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'promote/boost'
-  get 'promote/priority'
   post 'user_token' => 'user_token#create'
   
   defaults format: 'json' do
@@ -9,6 +7,7 @@ Rails.application.routes.draw do
     get 'agents/:id/purpose', to: 'users#purpose'
     get 'agents', to: 'users#search_agents'
     get 'verify/user', to: 'users#verify_user'
+    get 'user-stats', to: 'users#user_stats'
 
     resources :transactions
 

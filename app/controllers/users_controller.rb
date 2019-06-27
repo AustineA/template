@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose]
-  before_action :authenticate_user, only: [:update, :show, :verify_user]
+  before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats]
 
   def index
     
@@ -45,11 +45,9 @@ class UsersController < ApplicationController
     @posts = @user.posts.where(purpose: p).paginate(:page => params[:page], :per_page => 8)
   end
 
-  def stats
-    posts = current_user.posts
-    @boost_count = posts.where("boost > ?", 0).count
-    @priority_count = posts.where("priority > ?", 0).count
+  def user_stats
     @user = current_user
+    render :stats
   end
 
   def update
