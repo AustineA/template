@@ -42,7 +42,7 @@ class UsersController < ApplicationController
 
   def purpose
     p = params[:q]
-    @posts = @user.posts.where(purpose: p).paginate(:page => params[:page], :per_page => 8)
+    @posts = @user.posts.where(purpose: p).paginate(:page => params[:page], :per_page => 4)
   end
 
   def user_stats
