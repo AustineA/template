@@ -15,5 +15,12 @@ json = {
   boost: @subscription.boost,
   priorities: @subscription.priorities,
   max_post: @subscription.max_post,
+  links: {
+      current_page:  @transactions.current_page,
+      per_page: @transactions.per_page,
+      total_entries: @transactions.total_entries,
+      next_page: "/?page=#{@transactions.next_page}",
+      previous_page: "/?page=#{@transactions.previous_page}",
+  },
   transactions: t
 }

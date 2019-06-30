@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
 
   def index
     @subscription = current_user.subscription
-    @transactions = current_user.transactions
+    @transactions = current_user.transactions.paginate(:page => params[:page], :per_page => 2)
     render :index
   end
 

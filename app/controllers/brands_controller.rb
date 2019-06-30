@@ -1,11 +1,12 @@
 class BrandsController < ApplicationController
-  before_action :brand_params, only: [:show, :edit, :update, :destroy]
+  before_action :set_brand, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user
   
     def index
       if current_user.admin
        return  @brands = Brand.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
       else
-        return @brands = current_user.brands.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+        return @brands = current_user.brands.paginate(:page => params[:page], :per_page => 2).order(created_at: :desc)
       end
 
       render :index
