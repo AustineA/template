@@ -33,9 +33,9 @@ class UsersController < ApplicationController
   def search_agents
     only_agents = User.where.not(account_type: ["PROPERTY_OWNER", "INDIVIDUAL"], company: false)
     if query = params[:q].presence 
-      @agents = User.search query, fields: [:company, :f_name, :l_name, :email, :phone], misspellings: {edit_distance: 1, below: 2}, where: { account_type: {not: "INDIVIDUAL"} } 
+      @agents = User.search query, fields: [:company, :f_name, :l_name, :email, :phone], misspellings: {edit_distance: 1, below: 2}, where: { account_type: {not: "INDIVIDUAL"} }, page: params[:page], per_page: 12
     else
-      @agents = only_agents
+      @agents = only_agents.paginate(:page => params[:page], :per_page => 12)
     end
     render :agents
   end
