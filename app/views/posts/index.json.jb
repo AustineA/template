@@ -7,7 +7,7 @@ p = @posts.reject {|p| p.images.attached? == false}.map do |post|
         type_of_property: post.type_of_property,
         purpose: post.purpose,
         description: post.description,
-        card_thumbnail: url_for(post.images.first.variant(combine_options: Post.medium_options)),
+        card_thumbnail: post.images.first.variant(combine_options: Post.medium_options).service_url,
         days_in_words: distance_of_time_in_words(Time.current, post.created_at)
       }
     end

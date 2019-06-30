@@ -5,9 +5,9 @@ class BannerAdsController < ApplicationController
   
     def index
       if current_user.admin
-       return  @banner_ads = BannerAd.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+       return  @banner_ads = BannerAd.paginate(:page => params[:page], :per_page => 2).order(created_at: :desc)
       else
-        return @banner_ads = current_user.banner_ads.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+        return @banner_ads = current_user.banner_ads.paginate(:page => params[:page], :per_page => 2).order(created_at: :desc)
       end
 
       render :index
