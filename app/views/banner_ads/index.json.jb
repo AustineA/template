@@ -1,10 +1,10 @@
 b = @banner_ads.map do | banner |
   i = if banner.banner_type == "SMALL"
-        banner.sidebar_image.variant(combine_options: BannerAd.banner_ad).service_url
+        url_for(banner.sidebar_image.variant(combine_options: BannerAd.banner_ad))
       elsif banner.banner_type == "MEDIUM"
-        banner.listing_mobile_image.variant(combine_options: BannerAd.banner_ad).service_url
+        url_for(banner.listing_mobile_image.variant(combine_options: BannerAd.banner_ad))
       elsif banner.banner_type == "LARGE"
-        banner.home_mobile_image.variant(combine_options: BannerAd.banner_ad).service_url
+        url_for(banner.home_mobile_image.variant(combine_options: BannerAd.banner_ad))
     end
 
   {

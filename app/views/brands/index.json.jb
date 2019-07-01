@@ -7,7 +7,7 @@
     url: brand.url,
     permalink: "brands/#{brand.ref_no}",
     ref_no: brand.ref_no,
-    image: brand.logo.variant(combine_options: BannerAd.banner_ad).service_url
+    image: url_for(brand.logo.variant(combine_options: BannerAd.banner_ad))
   }
 end
 
