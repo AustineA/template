@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
-  
   defaults format: 'json' do
+    patch 'users/change-password', to: 'users#change_password'
     resources :users, only: [:create, :update, :index, :show]
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'

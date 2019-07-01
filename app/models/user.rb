@@ -10,6 +10,7 @@ class User < ApplicationRecord
 	searchkick
 	validates :username, presence: true, :uniqueness => true
 	validates :email, presence: true, :uniqueness => true
+	attr_accessor :old_password, :new_password
 
 	# scope :sale, -> { where(purpose: "SALE") }
 	# scope :rent, -> { where(purpose: "RENT") }

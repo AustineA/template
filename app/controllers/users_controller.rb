@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose]
-  before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats]
+  before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats, :change_password]
 
   def index
     
@@ -79,6 +79,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def change_password
+    @user = current_user
+
+    if  params[:user][:old_password].present? && params[:user][:new_password].present? && @user.authenticate(params[:user][:old_password])
+      @user.update!(:password => params[:user][:new_password] )
+        response = { message: "Success" }
+        render json: response, status: :ok
+      puts params[:user][:new_password]
+    else
+      response = { message: "Failed" }
+        render json: response, status: :unprocessable_entity
+      puts params[:user][:old_password]
+
+    end
+  end
+
   def verify_user
     if current_user
       response = {status: true}
@@ -95,6 +111,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:f_name, :l_name, :avatar, :username, :email, :password, :phone, :about, :company, :account_type, :country_code, address:[:state, :city, :street])
+    params.require(:user).permit(:f_name, :l_name, :old_password, :new_password, :avatar, :username, :email, :password, :phone, :about, :company, :account_type, :country_code, address:[:state, :city, :street])
   end
 end
