@@ -43,14 +43,18 @@ class PostsController < ApplicationController
 
   def create
     @user = current_user
-    @post = current_user.posts.build(post_params)
-    @post.images.attach(params[:images]) if params[:images].present?
-      if @post.save
-          render :created, status: :created
+      if @user.subscription.max_post > 0
+        @post = current_user.posts.build(post_params)
+        @post.images.attach(params[:images]) if params[:images].present?
+          if @post.save
+              render :created, status: :created
+          else
+            render json: @post.errors, status: :unprocessable_entity
+          end
       else
-        render json: @post.errors, status: :unprocessable_entity
+        response = {status: "You need to buy a subscription"}
+        render json: response, status: :unprocessable_entity
       end
-
   end
 
 
