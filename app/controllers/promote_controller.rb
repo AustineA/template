@@ -7,7 +7,7 @@ class PromoteController < ApplicationController
     max_priority = 1
     post = Post.find_by_permalink(params[:id])
     subscription = current_user.subscription
-    boost = params[:promote][:boost] if params[:promote][:boost].present?
+    boost = params[:promote][:boost].to_i if params[:promote][:boost].present?
     priority = params[:promote][:priority] if params[:promote][:priority].present?
     current_boost = post.boost
     current_priority = post.priority
