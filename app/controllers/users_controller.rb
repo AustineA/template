@@ -117,6 +117,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def check_max_post
+    @user = current_user
+
+    if (@user.subscription.max_post > 0)
+      response = {status: true}
+      render json: response, status: :ok
+    else
+      response = {status: "You need to buy a subscription"}
+      render json: response, status: :unprocessable_entity
+    end
+  end
 
   private
   def set_user

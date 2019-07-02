@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     get 'agents', to: 'users#search_agents'
     get 'verify/user', to: 'users#verify_user'
     get 'verify/user-data', to: 'users#verify_user_data'
+    get 'verify/max-post', to: 'users#check_max_post'
     get 'user-stats', to: 'users#user_stats'
 
     resources :transactions
