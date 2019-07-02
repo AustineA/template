@@ -105,6 +105,19 @@ class UsersController < ApplicationController
     end
   end
 
+  def verify_user_data
+    @user = current_user
+
+    if (@user.address && @user.phone.present?)
+      response = {status: true}
+      render json: response, status: :ok
+    else
+      response = {status: false}
+      render json: response, status: :unprocessable_entity
+    end
+  end
+
+
   private
   def set_user
     @user = User.find_by_username(params[:id])

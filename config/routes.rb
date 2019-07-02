@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'agents/:id/purpose', to: 'users#purpose'
     get 'agents', to: 'users#search_agents'
     get 'verify/user', to: 'users#verify_user'
+    get 'verify/user-data', to: 'users#verify_user_data'
     get 'user-stats', to: 'users#user_stats'
 
     resources :transactions
