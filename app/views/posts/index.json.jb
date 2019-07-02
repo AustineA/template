@@ -1,6 +1,8 @@
 p = @posts.reject {|p| p.images.attached? == false}.map do |post|
       {
         price: post.price,
+        boost: post.boost,
+        priority: post.priority,
         title: post.title,
         location: "#{post.lga}, #{post.state}",
         permalink: post.permalink,

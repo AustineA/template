@@ -1,5 +1,7 @@
 json = {
-  price: @post.price, 
+  price: @post.price,
+  boost: @post.boost,
+  priority: @post.priority,
   duration: @post.duration, 
   street: @post.street,
   lga: @post.lga,
