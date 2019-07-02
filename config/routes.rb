@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
   defaults format: 'json' do
     patch 'users/change-password', to: 'users#change_password'
+    patch 'users/iforgot', to: 'users#iforgot'
     resources :users, only: [:create, :update, :index, :show]
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
     get 'subscribe-brand/:id', to: 'brand_subscriber#subscriber'
 
     resources :banner_ads
+    get 'brands/all', to: 'brands#brands'
     resources :brands
 
     resources :posts

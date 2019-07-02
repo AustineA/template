@@ -3,6 +3,8 @@ class Brand < ApplicationRecord
   belongs_to :user
   after_create :generate_reference
 
+	scope :home, -> { where(status: "ACTIVE") }
+
   def self.logo
 		{   
       strip: true,

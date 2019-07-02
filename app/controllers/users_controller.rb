@@ -71,7 +71,7 @@ class UsersController < ApplicationController
       temp_password = SecureRandom.hex(10)
       @user.update!(:password => temp_password )
       # UserMailer.iforgot_email(@user, temp_password).deliver_later
-      response = { message: "An email has been sent to your email" }
+      response = { message: "A temporary password has been sent to your email", password: temp_password }
       render json: response, status: :ok
     else
       response = { message: "#{params[:user][:email]} doesn't exist. Please enter a valid email" }

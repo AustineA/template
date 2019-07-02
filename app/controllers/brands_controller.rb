@@ -1,6 +1,6 @@
 class BrandsController < ApplicationController
   before_action :set_brand, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user
+  before_action :authenticate_user, except: [:brands]
   
     def index
       if current_user.admin
@@ -10,6 +10,11 @@ class BrandsController < ApplicationController
       end
 
       render :index
+    end
+
+    def brands
+      @brands = Brand.home.order("RANDOM()")
+      # render :brands
     end
   
     def show
