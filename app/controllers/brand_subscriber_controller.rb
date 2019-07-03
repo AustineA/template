@@ -20,6 +20,7 @@ def partner brand
     if verify_transaction due_amount, ref_no
       brand_subscription = brand.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "partner brand created"}
+      SubscriptionMailer.brand(user, brand_subscription).deliver_later
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end

@@ -35,6 +35,7 @@ class BannerAdSubscriberController < ApplicationController
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ads created"}
+      SubscriptionMailer.bannerAd(user, banner_subscription).deliver_later
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end
@@ -51,6 +52,7 @@ class BannerAdSubscriberController < ApplicationController
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ads created"}
+      SubscriptionMailer.bannerAd(user, banner_subscription).deliver_later
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end
@@ -67,6 +69,7 @@ class BannerAdSubscriberController < ApplicationController
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ad created"}
+      SubscriptionMailer.bannerAd(user, banner_subscription).deliver_later
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end
