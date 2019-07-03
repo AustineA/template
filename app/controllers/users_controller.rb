@@ -10,9 +10,9 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       # auth_token = Knock::AuthToken.new payload: { sub: user.id, email: user.email, name: user.f_name }
-      # UserMailer.welcome(user).deliver_later
+      UserMailer.welcome(user).deliver_later
       # render json: auth_token, status: :created
-      sub = user.build_subscription(created_at: Time.now)
+      sub = user.build_subscription(created_at: Time.now, max_post: 10)
       if sub.save
         render json: { message: "Subscription created" }
       else

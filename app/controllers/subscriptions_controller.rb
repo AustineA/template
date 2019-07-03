@@ -44,6 +44,7 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, subscription).deliver_later
       end
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
@@ -62,6 +63,8 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, subscription).deliver_later
+
       end
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
@@ -80,6 +83,7 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, subscription).deliver_later
       end
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
