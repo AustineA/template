@@ -15,6 +15,7 @@ def partner brand
     price = 200000
     duration = brand.duration
     due_amount = total_due price, duration
+    user = brand.user
 
    
     if verify_transaction due_amount, ref_no

@@ -47,6 +47,7 @@ class BannerAdSubscriberController < ApplicationController
     price = 150000
     duration = banner_ad.duration
     due_amount = total_due price, duration
+    user = banner_ad.user
 
    
     if verify_transaction due_amount, ref_no
