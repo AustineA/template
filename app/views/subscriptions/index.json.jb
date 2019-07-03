@@ -8,10 +8,12 @@ t = @transactions.map do | transaction |
   }
 end
 
+e = @subscription.expiring_date.strftime("%e %b. %y") if @subscription.expiring_date
+
 
 json = {
   plan: @subscription.plan,
-  expiring_date: @subscription.expiring_date.strftime("%e %b. %y"),
+  expiring_date: e,
   boost: @subscription.boost,
   priorities: @subscription.priorities,
   max_post: @subscription.max_post,
