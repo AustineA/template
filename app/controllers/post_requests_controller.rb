@@ -19,7 +19,7 @@ class PostRequestsController < ApplicationController
 
       query = params[:q].presence || "*"
 
-      @post_requests =  PostRequest.search query, fields: [:state, :lga], where: args, aggs: { state: {}, lga: {}, user_id: {}}, page: params[:page], per_page: 12
+      @post_requests =  PostRequest.search query, order: { created_at: :desc}, fields: [:state, :lga], where: args, aggs: { state: {}, lga: {}, user_id: {}}, page: params[:page], per_page: 12
       render :index
     end
 
