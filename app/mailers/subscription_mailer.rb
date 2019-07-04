@@ -1,8 +1,9 @@
 class SubscriptionMailer < ApplicationMailer
-  def invoice(user, subscription)
+  def invoice(user, transaction, subscription)
     @user = user
+    @transaction = transaction
     @subscription = subscription
-    mail(to: @user.email, subject: "your '#{@subscription.plan}' subscription was successfully updated.")
+    mail(to: @user.email, subject: "your '#{@transaction.transaction_for}' subscription was successfully updated.")
   end
 
   def bannerAd (user, banner)

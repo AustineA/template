@@ -21,15 +21,15 @@
    
   <div align= "left" style="padding-left: 50px; font-size: 9px; color: #3E3E3E">
      <p style="color:#A6ADB4"> AMOUNT BILLED </p>
-     <p style="font-size: 20px;"> N <%=@subscription.amount%> </p>
+     <p style="font-size: 20px;"> N <%=@transaction.amount%> </p>
      <p style="color:#A6ADB4">EXPIRATION DATE </p>
-    <p> <%=@subscription.expiring_date.strftime("%e %b. %y")%> </p>
+    <p> <%=@subscription.expiring_date.strftime("%e %b. %y") if @subscription.expiring_date%> </p>
     <p style="color:#A6ADB4">PLAN</p>
-    <p> <%=@subscription.plan%> </p>
+    <p> <%=@transaction.transaction_for%> </p>
     <p style="color:#A6ADB4">PAYMENT METHOD</p>
     <p>Paystack</p>
     <p style="color:#A6ADB4">REFERENCE NO.</p>
-    <p> <%=@subscription.ref_no%> </p>
+    <p> <%=@transaction.ref_no%> </p>
    </div>
             <div class="divider" style="margin-top: 20px;padding-left: 35px;padding-right: 35px"> <hr style="border: 0.4px solid #d4d0d0;">
             </div>

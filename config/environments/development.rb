@@ -37,13 +37,13 @@ Rails.application.configure do
 
 
   config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
-  config.action_mailer.smtp_settings = {
-    :address => 'in-v3.mailjet.com',
-    :port => 587,
-    :user_name => '13adcfa25d74de181dea03e1be919d92',
-    :password => Rails.application.credentials.mailjet,
-    :authentication => 'login',
-    :enable_starttls_auto => true
-  }
+  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  # config.action_mailer.smtp_settings = {
+  #   :address => 'in-v3.mailjet.com',
+  #   :port => 587,
+  #   :user_name => '13adcfa25d74de181dea03e1be919d92',
+  #   :password => Rails.application.credentials.mailjet,
+  #   :authentication => 'login',
+  #   :enable_starttls_auto => true
+  # }
 end

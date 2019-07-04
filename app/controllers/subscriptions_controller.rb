@@ -16,6 +16,10 @@ class SubscriptionsController < ApplicationController
         pro transaction
       when plan == "CUSTOM"
         custom transaction
+      when plan == "PRIORTY"
+        priority transaction
+      when plan == "BOOST"
+        boost transaction
 			else
 				render "Unknown plan"		
 		end
@@ -44,7 +48,7 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
-        SubscriptionMailer.invoice(user, subscription).deliver_later
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
       end
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
@@ -63,7 +67,7 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
-        SubscriptionMailer.invoice(user, subscription).deliver_later
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
 
       end
     else
@@ -83,12 +87,54 @@ class SubscriptionsController < ApplicationController
       if subscription.save
         render json: { status: "subscription created"}
         transaction.update_attributes(status: "PAID")
-        SubscriptionMailer.invoice(user, subscription).deliver_later
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
       end
     else
       render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
     end
   end
+
+
+  def priority transaction
+    ref_no = transaction.ref_no
+    price = 500
+    duration = transaction.duration
+    due_amount = price * duration 
+    user = transaction.user
+   
+    if verify_transaction due_amount, ref_no
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, priorities: duration)
+      if subscription.save
+        render json: { status: "additional priority successful"}
+        transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
+      end
+    else
+      render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
+    end
+  end
+
+
+
+  def boost transaction
+    ref_no = transaction.ref_no
+    price = 500
+    duration = transaction.duration
+    due_amount = price * duration 
+    user = transaction.user
+   
+    if verify_transaction due_amount, ref_no
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, boost: duration)
+      if subscription.save
+        render json: { status: "additional boost successful"}
+        transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
+      end
+    else
+      render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
+    end
+  end
+
 
   def total_due price, duration
     if duration >= 6 && duration < 12
