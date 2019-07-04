@@ -16,7 +16,7 @@ class SubscriptionsController < ApplicationController
         pro transaction
       when plan == "CUSTOM"
         custom transaction
-      when plan == "PRIORTY"
+      when plan == "PRIORITY"
         priority transaction
       when plan == "BOOST"
         boost transaction
