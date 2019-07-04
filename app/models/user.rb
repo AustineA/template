@@ -43,8 +43,7 @@ class User < ApplicationRecord
       sub: id,
       email: email,
       username: username,
-			admin: admin,
-			plan: subscription.plan
+			admin: admin
     }
   end
 
