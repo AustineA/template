@@ -43,10 +43,13 @@ class PostsController < ApplicationController
 
   def create
     @user = current_user
-      if @user.subscription.max_post > 0
+    max_post = @user.subscription.max_post
+
+      if max_post > 0
         @post = current_user.posts.build(post_params)
         @post.images.attach(params[:images]) if params[:images].present?
           if @post.save
+              @user.subscription.update_attributes(max_post: max_post -1 )
               render :created, status: :created
           else
             render json: @post.errors, status: :unprocessable_entity
