@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     if query = params[:q].presence 
       @agents = User.search query, fields: [:company, :f_name, :l_name, :email, :phone], misspellings: {edit_distance: 1, below: 2}, where: { account_type: {not: ["INDIVIDUAL", "PROPERTY_OWNER"]} }, page: params[:page], per_page: 12
     else
-      @agents = only_agents.paginate(:page => params[:page], :per_page => 12)
+      @agents = only_agents.paginate(:page => params[:page], :per_page => 12).order("RANDOM()")
     end
     render :agents
   end

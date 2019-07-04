@@ -1,11 +1,11 @@
 class User < ApplicationRecord
 	has_secure_password
 	has_many :posts, dependent: :destroy
-	has_many :post_requests
-	has_many :transactions
-	has_many :banner_ads
-	has_many :brands
-	has_one :subscription
+	has_many :post_requests, dependent: :destroy
+	has_many :transactions, dependent: :destroy
+	has_many :banner_ads, dependent: :destroy
+	has_many :brands, dependent: :destroy
+	has_one :subscription, dependent: :destroy
 	has_one_attached :avatar
 	searchkick
 	validates :username, presence: true, :uniqueness => true
