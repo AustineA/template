@@ -14,28 +14,38 @@ class MarkersController < ApplicationController
     # POST /posts/:post_id/markers
     def create
       @post = Post.find_by_permalink(params[:post_id])
-      @marker = @post.markers.build(marker_params)
-      @marker.user = current_user
-  
-      if @marker.save
-        render  json: { message: "Saved" }, status: :created
+      
+      if Marker.where(user_id: current_user.id, post_id: @post.id).exists?
+        render json: { message: "Already Saved" }, status: :conflict
       else
-        render json: @marker.errors, status: :unprocessable_entity
+        @marker = @post.markers.build(marker_params)
+        @marker.user = current_user
+        if @marker.save
+          render  json: { message: "Saved" }, status: :created
+        else
+          render json: @marker.errors, status: :unprocessable_entity
+        end
       end
     end
   
     # PATCH/PUT /posts/:post_id/markers/1
-    def update
-        if @marker.update(marker_params)
-          render json: { message: "Updated" },status: :ok
-        else
-          render json: @marker.errors, status: :unprocessable_entity
-        end
-    end
+    # def update
+    #     if @marker.update(marker_params)
+    #       render json: { message: "Updated" },status: :ok
+    #     else
+    #       render json: @marker.errors, status: :unprocessable_entity
+    #     end
+    # end
   
     # DELETE /posts/:post_id/markers/1
     def destroy
-      @marker.destroy
+      @post = Post.find_by_permalink(params[:post_id])
+
+      if Marker.where(user_id: current_user.id, post_id: @post.id).exists?
+        @marker.destroy
+      else
+        render json: { message: "Unauthorized" }, status: :unauthorized
+      end
     end
   
     private
@@ -44,6 +54,6 @@ class MarkersController < ApplicationController
     end
   
     def marker_params
-      params.require(:marker).permit(:type_of_marker, :saved)
+      params.require(:marker).permit(:type_of_maker, :saved)
     end
 end
