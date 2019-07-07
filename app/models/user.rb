@@ -5,6 +5,7 @@ class User < ApplicationRecord
 	has_many :transactions, dependent: :destroy
 	has_many :banner_ads, dependent: :destroy
 	has_many :brands, dependent: :destroy
+	has_many :markers, dependent: :destroy
 	has_one :subscription, dependent: :destroy
 	has_one_attached :avatar
 	searchkick

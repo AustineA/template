@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_07_082356) do
+ActiveRecord::Schema.define(version: 2019_07_07_165959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(version: 2019_07_07_082356) do
     t.datetime "updated_at", null: false
     t.index ["owner"], name: "index_contacts_on_owner"
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "markers", force: :cascade do |t|
+    t.boolean "saved", default: false, null: false
+    t.integer "user_id"
+    t.integer "post_id"
+    t.string "type_of_maker"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_markers_on_post_id"
+    t.index ["user_id"], name: "index_markers_on_user_id"
   end
 
   create_table "post_requests", force: :cascade do |t|

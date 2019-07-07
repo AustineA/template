@@ -2,6 +2,7 @@ class Post < ApplicationRecord
 	before_create :generate_permalink
 	after_create :generate_reference, :assign_tags, :assign_promotion_updated_at
 	has_many_attached :images
+	has_many :markers, dependent: :destroy
 	belongs_to :user, :counter_cache => true
 	searchkick
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')

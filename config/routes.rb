@@ -26,7 +26,10 @@ Rails.application.routes.draw do
     get 'brands/all', to: 'brands#brands'
     resources :brands
 
-    resources :posts
+    get 'markers/all', to: 'markers#index'
+    resources :posts do
+      resources :markers, except: [:index]
+    end
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
     resources :posts, only: [:delete_image_attachment] do
