@@ -1,11 +1,12 @@
 class Post < ApplicationRecord
 	before_create :generate_permalink
-	after_create :generate_reference, :assign_tags
+	after_create :generate_reference, :assign_tags, :assign_promotion_updated_at
 	has_many_attached :images
 	belongs_to :user, :counter_cache => true
 	searchkick
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')
 
+	scope :scorable, -> { where("score > ?", 0) }
 
 	def self.thumbnail_options
 		{ 
@@ -76,14 +77,10 @@ class Post < ApplicationRecord
 		self.update_attributes(tags: "#{self.state}, #{self.lga}, #{self.area}")
 	end
 
-
-	def provide_correct_create_counter_2
-    User.increment_counter(:second_friends_count, another_user.id)
-  end
-
-  def provide_correct_destroy_counter_2
-    User.decrement_counter(:second_friends_count, another_user.id)
+	def assign_promotion_updated_at
+		self.update_attributes(promotion_updated_at: Time.now.beginning_of_year)
 	end
+
 	
 end
 

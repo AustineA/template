@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 
 
   def index
-    @posts = Post.paginate(:page => params[:page], :per_page => 8)
+    @posts = Post.scorable.order(score: :desc, promotion_updated_at: :desc).paginate(:page => params[:page], :per_page => 8)
     render :index
   end
 
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
 
     query = params[:q].presence || "*"
 
-    @posts =  Post.search query, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, use_of_property: {}, price: {}, bedrooms: {}, bathrooms: {}}, page: params[:page], per_page: 8
+    @posts =  Post.search query, order: { score: :desc, promotion_updated_at: :desc}, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { purpose: {}, type_of_property: {}, use_of_property: {}, price: {}, bedrooms: {}, bathrooms: {}}, page: params[:page], per_page: 8
     render :index
 
   end

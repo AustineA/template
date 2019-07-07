@@ -18,7 +18,7 @@ class PromoteController < ApplicationController
     
     if ( priority && ( priority <= max_priority ) && (remaining_priorities >= priority) && ( current_priority + priority  <= max_priority ) )
       new_priority = current_priority + priority
-      post.update_attributes(priority: new_priority, score: score + priority)
+      post.update_attributes(priority: new_priority, score: score + priority, promotion_updated_at: Time.now)
       subscription.update_attributes(priorities: remaining_priorities - priority)
       priority_count = current_user.posts.where("priority > ?", 0).count
       current_user.update_attributes(priority_count: priority_count)
@@ -32,7 +32,7 @@ class PromoteController < ApplicationController
     if ( boost && ( boost <= max_boost ) && (remaining_boost >= boost) && ( current_boost + boost  <= max_boost ) && updated_post.priority > 0)
       new_boost = current_boost + boost
       updated_score = updated_post.score
-      updated_post.update_attributes(boost: new_boost, score: updated_score + boost)
+      updated_post.update_attributes(boost: new_boost, score: updated_score + boost, promotion_updated_at: Time.now)
       subscription.update_attributes(boost: remaining_boost - boost)
       boost_count = current_user.posts.where("boost > ?", 0).count
       current_user.update_attributes(boost_count: boost_count)
