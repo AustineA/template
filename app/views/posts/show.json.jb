@@ -3,6 +3,9 @@ s = if @user && @post.markers.where(user_id: @user.id, post_id: @post.id).exists
     else
       false
     end
+l = if s
+      "posts/#{@post.permalink}/markers/#{@post.markers.where(user_id: @user.id).first.id}"  
+    end
 
 json = {
   price: @post.price,
@@ -29,6 +32,7 @@ json = {
   created_at: @post.created_at.strftime( "%e %b. %y"),
   updated_at: @post.updated_at.strftime( "%e %b. %y"),
   save_url: "posts/#{@post.permalink}/markers",
+  unsave_url: l,
   saved: s
 }
 
