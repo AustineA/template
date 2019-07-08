@@ -21,9 +21,9 @@ class MarkersController < ApplicationController
         @marker = @post.markers.build(marker_params)
         @marker.user = current_user
         if @marker.save
-          render  json: { message: "Saved" }, status: :created
+          render  json: { unsave_url: "posts/#{@marker.post.permalink}/markers/#{@marker.id}", message: "Saved" }, status: :created
         else
-          render json: @marker.errors, status: :unprocessable_entity
+          render json: { message: "Unauthorized! Please sign in." }, status: :unprocessable_entity
         end
       end
     end
