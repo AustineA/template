@@ -18,4 +18,10 @@ else
  json[:phone] =  "#{@user.phone}"
 end
 
+if @user.country_code_whatsapp
+  json[:whatsapp] =  "#{@user.country_code_whatsapp}#{@user.whatsapp}"
+else
+ json[:whatsapp] =  "#{@user.whatsapp}"
+end
+
 json

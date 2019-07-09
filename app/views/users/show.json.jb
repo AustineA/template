@@ -3,6 +3,8 @@ json = {
   l_name: @user.l_name,
   phone:  @user.phone,
   country_code: @user.country_code,
+  whatsapp: @user.whatsapp,
+  country_code_whatsapp: @user.country_code_whatsapp,
   account_type: @user.account_type,
   address: @user.address,
   company: @user.company,

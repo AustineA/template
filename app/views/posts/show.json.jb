@@ -45,6 +45,8 @@ if @post.user.address
     name: @post.user.f_name,
     phone: @post.user.phone,
     country_code: @post.user.country_code,
+    whatsapp: @post.user.whatsapp,
+    country_code_whatsapp: @post.user.country_code_whatsapp,
     company: @post.user.company,
     account_type: @post.user.account_type,
     url: "/#{@post.user.username}",
