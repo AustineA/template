@@ -34,6 +34,13 @@ module TdsBackend
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head]
       end
+
+      allow do
+        origins 'www.2dotsproperties.com'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :patch, :delete, :options, :head]
+      end
   
       allow do
         origins 'localhost:3500'
