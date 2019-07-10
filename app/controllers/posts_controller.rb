@@ -47,14 +47,20 @@ class PostsController < ApplicationController
     max_post = @user.subscription.max_post
 
       if max_post > 0
-        @post = current_user.posts.build(post_params)
-        @post.images.attach(params[:images]) if params[:images].present?
-          if @post.save
-              @user.subscription.update_attributes(max_post: max_post -1 )
-              render :created, status: :created
-          else
-            render json: @post.errors, status: :unprocessable_entity
-          end
+        if params[:images].present?
+
+          @post = current_user.posts.build(post_params)
+          @post.images.attach(params[:images])
+            if @post.save
+                @user.subscription.update_attributes(max_post: max_post -1 )
+                render :created, status: :created
+            else
+              render json: @post.errors, status: :unprocessable_entity
+            end
+        else
+          response = {status: "Please attach an image and try again"}
+          render json: response, status: :forbidden
+        end
       else
         response = {status: "You need to buy a subscription"}
         render json: response, status: :unprocessable_entity

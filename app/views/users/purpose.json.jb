@@ -1,4 +1,7 @@
 p = @posts.map do |post|
+    i = if post.images.attached?
+      url_for(post.images.first.variant(combine_options: Post.medium_options))
+    end
   {
     location: "#{post.lga}, #{post.state}",
     title: post.title,
@@ -6,7 +9,7 @@ p = @posts.map do |post|
     boost: post.boost,
     priority: post.priority,
     permalink: post.permalink,
-    card_thumbnail: url_for(post.images.first.variant(combine_options: Post.medium_options))
+    card_thumbnail: i
   }
 end
 
