@@ -5,7 +5,8 @@ a = @users.map do |user|
     account_type: user.account_type,
     permalink: user.username,
     no_of_propertie:  user.posts_count,
-    last_logged_in: l
+    last_logged_in: l,
+    verified: user.verified
   }
 end
 
