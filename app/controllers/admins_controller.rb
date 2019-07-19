@@ -1,5 +1,5 @@
 class AdminsController < ApplicationController
-
+ before_action :authenticate_user
 
   def home
     if current_user.admin
@@ -7,6 +7,16 @@ class AdminsController < ApplicationController
       render :admin
     else
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
+
+  def verify_admin
+    if current_user.admin
+      response = {status: true}
+      render json: response, status: :ok
+    else
+      response = {status: false}
+      render json: response, status: :ok
     end
   end
 

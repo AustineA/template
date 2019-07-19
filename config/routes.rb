@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     get 'admin/all-posts',  to: "admins#search_posts"
     get 'admin/reports', to: "admins#reported"
     get 'admin/all', to: "admins#admins"
+    get 'admin/verify', to: "admins#verify_admin"
 
     resources :transactions
 
