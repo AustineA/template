@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   defaults format: 'json' do
     patch 'users/change-password', to: 'users#change_password'
     patch 'users/iforgot', to: 'users#iforgot'
-    resources :users, only: [:create, :update, :index, :show]
+    resources :users, only: [:create, :update, :index, :show, :destroy]
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'
     get 'agents', to: 'users#search_agents'
@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     get 'user-stats', to: 'users#user_stats'
 
     get 'admin', to: "admins#home"
+    get 'admin/users', to: "admins#search_users"
+    get 'admin/stats', to: "admins#users_stats"
 
     resources :transactions
 
