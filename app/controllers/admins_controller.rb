@@ -10,6 +10,14 @@ class AdminsController < ApplicationController
     end
   end
 
+  def admins
+    if current_user.super_user
+      @users = User.where(admin: true).order(last_logged_in: :desc).paginate(:page => params[:page], :per_page => 12)
+      render :users
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
 
   def users_stats
     if current_user.admin
@@ -57,7 +65,7 @@ class AdminsController < ApplicationController
 
       query = params[:q].presence || '*'
 
-      @posts =  Post.search query, order: { created_at: :desc}, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { lga: {}, type_of_property: {}, state: {}}, page: params[:page], per_page: 8
+      @posts =  Post.search query, order: { created_at: :desc}, fields: [:title, :street, :lga, :state, :area, :tags, :reference_id],misspellings: {edit_distance: 2, below: 1}, where: args, aggs: { lga: {}, type_of_property: {}, state: {}}, page: params[:page], per_page: 12
       render :posts
     else
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
@@ -66,8 +74,8 @@ class AdminsController < ApplicationController
 
   def reported
     if current_user.admin
-      @posts = Post.order(created_at: :desc)
-      render :posts
+      @reports = Marker.where(type_of_maker: "REPORTED" ).order(created_at: :desc).paginate(:page => params[:page], :per_page => 12)
+      render :reports
     else
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
     end
