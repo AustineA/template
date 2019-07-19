@@ -6,6 +6,7 @@ class User < ApplicationRecord
 	has_many :banner_ads, dependent: :destroy
 	has_many :brands, dependent: :destroy
 	has_many :markers, dependent: :destroy
+	has_many :logs, dependent: :destroy
 	has_one :subscription, dependent: :destroy
 	has_one_attached :avatar
 	searchkick
@@ -24,6 +25,18 @@ class User < ApplicationRecord
   def self.from_token_request request
 		username = request.params["auth"] && request.params["auth"]["username"]
     email = request.params["auth"] &&  request.params["auth"]["email"]
+
+		user = (self.find_by username: username) || ( self.find_by email: email )
+		
+		if user && user.authenticate(request.params[:auth][:password])
+			if user.logs.last
+				user.update_attributes(last_logged_in: user.logs.last.time)
+			else
+				user.update_attributes(last_logged_in: Time.now)
+			end
+			Log.create!( time: Time.now , user_id: user.id )
+		end
+
 		self.find_by username: username or self.find_by email: email
 	end
 

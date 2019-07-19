@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     get 'verify/max-post', to: 'users#check_max_post'
     get 'user-stats', to: 'users#user_stats'
 
+    get 'admin', to: "admins#home"
+
     resources :transactions
 
     get 'subscribe/:id', to: 'subscriptions#subscriber'
