@@ -92,5 +92,21 @@ class AdminsController < ApplicationController
   end
 
 
+  # def upgrade_user
+  #   if current_user.admin
+  #     user = User.find_by(username: params[:id])
+
+  #     sub = user.build_subscription(created_at: Time.now, max_post: 10, expiring_date: Time.now+30.day)
+  #     if sub.save
+  #       render json: { message: "Subscription created" }
+  #     else
+  #       render json: { message: "Subscription not created" }
+  #     end
+  #     UserMailer.welcome(user).deliver_later
+  #   else
+  #     render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+  #   end
+  # end
+
 
 end
