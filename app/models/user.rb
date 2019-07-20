@@ -19,6 +19,8 @@ class User < ApplicationRecord
 	# scope :short, -> { where(purpose: "SHORT") }
 	# scope :development, -> { where(purpose: "NEW") }
 	# scope :installment, -> { where(purpose: "INSTALLMENT") }
+	scope :agents, -> { where.not(account_type: ["PROPERTY_OWNER", "INDIVIDUAL"], company: false) }
+
 
 
 
