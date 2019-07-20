@@ -83,6 +83,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def make_admin
+    if current_user.super_user
+      @user.update_attributes(admin: true)
+    else
+      render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
+    end
+  end
+
   def destroy_avatar
     if @user == current_user || current_user.admin
       @user.avatar.purge

@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get 'admin/reports', to: "admins#reported"
     get 'admin/all', to: "admins#admins"
     get 'admin/verify', to: "admins#verify_admin"
+    get 'admin/make-admin/:id', to: "users#make_admin"
 
     resources :transactions
 
