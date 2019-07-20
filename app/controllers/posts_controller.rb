@@ -79,9 +79,13 @@ class PostsController < ApplicationController
     end
 
 
-    def destroy
+  def destroy
+    if @post.user == current_user || current_user.admin
       @post.destroy
+      else
+        render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end
+  end
 
   def delete_image_attachment
     @delete_image = ActiveStorage::Attachment.find(params[:id])

@@ -71,7 +71,7 @@ class UsersController < ApplicationController
           render json: { message: @user.errors.full_messages.to_sentence }, status: :unprocessable_entity
         end
       else
-        render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+        render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end
   end
 
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
     if @user == current_user || current_user.admin
       @user.destroy
     else
-        render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+        render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end
   end
 
@@ -87,7 +87,7 @@ class UsersController < ApplicationController
     if @user == current_user || current_user.admin
       @user.avatar.purge
     else
-      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+      render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end
   end
 
