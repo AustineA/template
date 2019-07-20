@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     patch 'users/change-password', to: 'users#change_password'
     patch 'users/iforgot', to: 'users#iforgot'
     resources :users, only: [:create, :update, :index, :show, :destroy]
+    delete 'users/delete-avatar/:id', to: 'users#destroy_avatar'
     get 'agents/:id/', to: 'users#agents'
     get 'agents/:id/purpose', to: 'users#purpose'
     get 'agents', to: 'users#search_agents'

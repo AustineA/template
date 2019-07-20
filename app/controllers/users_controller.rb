@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose]
+  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose, :destroy_avatar]
   before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats, :change_password]
 
   def index
@@ -58,17 +58,36 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
+    if @user == current_user || current_user.admin
 
-    if params[:user][:avatar].present?
-      @user.avatar.purge
-      @user.avatar.attach(params[:avatar])
+        if params[:user][:avatar].present?
+          @user.avatar.purge
+          @user.avatar.attach(params[:avatar])
+        end
+
+        if @user.update!(user_params)
+          render :show
+        else
+          render json: { message: @user.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        end
+      else
+        render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
     end
+  end
 
-    if @user.update!(user_params)
-      render :show
+  def destroy
+    if @user == current_user || current_user.admin
+      @user.destroy
     else
-      render json: { message: @user.errors.full_messages.to_sentence }, status: :unprocessable_entity
+        render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
+
+  def destroy_avatar
+    if @user == current_user || current_user.admin
+      @user.avatar.purge
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
     end
   end
 
