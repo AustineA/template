@@ -15,8 +15,8 @@ class AdminsController < ApplicationController
       response = {status: true}
       render json: response, status: :ok
     else
-      response = {status: false}
-      render json: response, status: :ok
+      response = {status: "You need to buy a subscription"}
+      render json: response, status: :unprocessable_entity
     end
   end
 
