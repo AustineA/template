@@ -1,5 +1,5 @@
 a = @users.map do |user|
-  l = user.last_logged_in.strftime("%-d %b. %-d %-l:%M %P") if user.last_logged_in
+  l = user.last_logged_in.strftime("%e %b. %y. - %l:%M %P") if user.last_logged_in
   {
     name: "#{user.f_name} #{user.l_name}",
     account_type: user.account_type,

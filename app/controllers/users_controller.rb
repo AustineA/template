@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose, :destroy_avatar]
+  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose, :destroy_avatar, :make_admin]
   before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats, :change_password]
 
   def index
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @admin = current_user if current_user.admin
   end
 
   def agents

@@ -32,9 +32,11 @@ Rails.application.routes.draw do
     get 'subscribe-banner/:id', to: 'banner_ad_subscriber#subscriber'
     get 'subscribe-brand/:id', to: 'brand_subscriber#subscriber'
 
-    resources :banner_ads
+    resources :banner_ads, except: [:index]
+    get 'banner_ads/users/:id', to: 'banner_ads#index'
     get 'brands/all', to: 'brands#brands'
-    resources :brands
+    get 'brands/users/:id', to: 'brands#index'
+    resources :brands, except: [:index]
 
     get 'markers/all', to: 'markers#index'
     resources :posts do
