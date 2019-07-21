@@ -1,5 +1,10 @@
 Rails.application.configure do
 
+  config.time_zone = "West Central Africa"
+  config.active_record.default_timezone = :local
+  config.active_record.time_zone_aware_attributes = false
+
+
   config.cache_classes = true
   config.eager_load = true
   config.consider_all_requests_local       = false

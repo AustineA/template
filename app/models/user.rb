@@ -34,9 +34,10 @@ class User < ApplicationRecord
 			if user.logs.last
 				user.update_attributes(last_logged_in: user.logs.last.time)
 			else
-				user.update_attributes(last_logged_in: Time.now)
+				user.update_attributes(last_logged_in: Time.zone.now)
 			end
-			Log.create!( time: Time.now , user_id: user.id )
+			Log.create!( time: Time.zone.now , user_id: user.id )
+			user.update_attributes(logged_in_at: Time.zone.now)
 		end
 
 		self.find_by username: username or self.find_by email: email
