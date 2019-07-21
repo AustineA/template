@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :transactions
 
     get 'subscribe/:id', to: 'subscriptions#subscriber'
-    get 'my-subscription', to: 'subscriptions#index'
+    get 'my-subscription/:id', to: 'subscriptions#index'
 
     post 'promote/:id', to: 'promote#promoter'
 

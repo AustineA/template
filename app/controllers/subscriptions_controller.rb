@@ -28,9 +28,16 @@ class SubscriptionsController < ApplicationController
   end
 
   def index
-    @subscription = current_user.subscription
-    @transactions = current_user.transactions.paginate(:page => params[:page], :per_page => 2)
-    render :index
+    user = User.find_by_username(params[:id])
+
+    if user == current_user || current_user.admin
+      @subscription = user.subscription
+      @transactions = user.transactions.paginate(:page => params[:page], :per_page => 2)
+      render :index
+    else
+      render json:   { message: "You're not authorized to access this resources" }, status: :unauthorized
+    end
+    
   end
 
 
