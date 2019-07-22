@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def search_agents
     only_agents = User.agents
     if params[:q].present?
-      @result = User.agents.ransack(company_cont: params[:q]).result(distinct: true)
+      @result = User.agents.ransack(company_start: params[:q]).result(distinct: true)
       @agents = @result.paginate(:page => params[:page], :per_page => 12).order(:company)
     else
       @agents = only_agents.paginate(:page => params[:page], :per_page => 12).order("RANDOM()")

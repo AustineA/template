@@ -16,7 +16,7 @@ class AdminsController < ApplicationController
       render json: response, status: :ok
     else
       response = {status: "You need to buy a subscription"}
-      render json: response, status: :unprocessable_entity
+      render json: response, status: :unauthorized
     end
   end
 
