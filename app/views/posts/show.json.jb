@@ -37,7 +37,7 @@ json = {
 }
 
 if @post.user.avatar.attached?
-   json[:agent_avatar] = url_for(@post.user.avatar.variant(combine_options: User.avatar))
+  json[:agent_avatar] = url_for(@post.user.avatar.variant(combine_options: User.avatar))
 end
 
 if @post.user.address
@@ -55,7 +55,7 @@ if @post.user.address
 end
 
 
-json[:images] = @post.images.map do |image|
+json[:images] = @post.images.reject { |i| i.variable? == false } .map do |image|
   {
     large_url: url_for(image.variant(combine_options: Post.large_options)),
     delete_url: delete_image_attachment_post_path(image.id)
