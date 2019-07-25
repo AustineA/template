@@ -1,0 +1,30 @@
+ f = @forums.map do |forum|
+
+  i = if (forum.user.avatar.attached? == true) && (forum.user.avatar.variable? == true)
+        url_for(forum.user.avatar.variant(combine_options: User.avatar))
+      else
+        nil
+      end
+
+  {
+    subject: forum.subject,
+    body: forum.body,
+    replies: forum.comments_count,
+    posted_at: forum.created_at.strftime( "%e %b. %y"),
+    category: forum.category,
+    permalink: "forums/#{forum.permalink}",
+    avatar: i
+  }
+end
+
+
+{
+  links: {
+      current_page:  @forums.current_page,
+      per_page: @forums.per_page,
+      total_entries: @forums.total_entries,
+      next_page: "/?page=#{@forums.next_page}",
+      previous_page: "/?page=#{@forums.previous_page}",
+  },
+  form_posts: f
+}

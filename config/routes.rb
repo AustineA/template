@@ -42,6 +42,11 @@ Rails.application.routes.draw do
     resources :posts do
       resources :markers, except: [:index]
     end
+
+    resources :forums do
+      resources :comments
+    end
+    
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'
     resources :posts, only: [:delete_image_attachment] do

@@ -7,6 +7,8 @@ class User < ApplicationRecord
 	has_many :brands, dependent: :destroy
 	has_many :markers, dependent: :destroy
 	has_many :logs, dependent: :destroy
+	has_many :forums, dependent: :destroy
+	has_many :comments, dependent: :destroy
 	has_one :subscription, dependent: :destroy
 	has_one_attached :avatar
 	searchkick

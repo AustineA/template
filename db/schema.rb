@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_21_115413) do
+ActiveRecord::Schema.define(version: 2019_07_25_162420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,16 @@ ActiveRecord::Schema.define(version: 2019_07_21_115413) do
     t.index ["user_id"], name: "index_brands_on_user_id"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "user_id"
+    t.integer "forum_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forum_id"], name: "index_comments_on_forum_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -76,6 +86,20 @@ ActiveRecord::Schema.define(version: 2019_07_21_115413) do
     t.datetime "updated_at", null: false
     t.index ["owner"], name: "index_contacts_on_owner"
     t.index ["user_id"], name: "index_contacts_on_user_id"
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.string "subject"
+    t.string "category"
+    t.text "body"
+    t.integer "comments_count", default: 0
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "permalink"
+    t.index ["permalink"], name: "index_forums_on_permalink"
+    t.index ["subject"], name: "index_forums_on_subject"
+    t.index ["user_id"], name: "index_forums_on_user_id"
   end
 
   create_table "logs", force: :cascade do |t|

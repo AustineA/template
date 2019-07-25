@@ -1,0 +1,34 @@
+i = if (@forum.user.avatar.attached? == true) && (@forum.user.avatar.variable? == true)
+        url_for(@forum.user.avatar.variant(combine_options: User.avatar))
+      else
+        nil
+      end
+
+
+
+json =  {
+    subject: @forum.subject,
+    body: @forum.body,
+    replies: @forum.comments_count,
+    posted_at: @forum.created_at.strftime( "%e %b. %y"),
+    category: @forum.category,
+    permalink: "forums/#{@forum.permalink}",
+    avatar: i
+}
+
+
+json[:comments] = @forum.comments.map do |comment|
+  a = if comment.user.avatar.attached? && comment.user.avatar.variable?
+        url_for(comment.user.avatar.variant(combine_options: User.avatar))
+      else
+        nil
+      end
+
+  {
+    body: comment.body,
+    permalink: "forums/#{@forum.permalink}/#{comment.id}",
+    avatar: a
+  }
+end
+
+json
