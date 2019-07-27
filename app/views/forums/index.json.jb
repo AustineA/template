@@ -12,8 +12,9 @@
     replies: forum.comments_count,
     posted_at: forum.created_at.strftime( "%e %b. %y"),
     category: forum.category,
-    permalink: "forums/#{forum.permalink}",
-    avatar: i
+    permalink: forum.permalink,
+    avatar: i,
+    user: "#{forum.user.f_name} #{forum.user.l_name}"
   }
 end
 
