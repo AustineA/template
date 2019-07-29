@@ -32,7 +32,7 @@ class BannerAdSubscriberController < ApplicationController
     due_amount = total_due price, duration
     user = banner_ad.user
 
-   
+  
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ads created"}
@@ -50,7 +50,7 @@ class BannerAdSubscriberController < ApplicationController
     due_amount = total_due price, duration
     user = banner_ad.user
 
-   
+  
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ads created"}
@@ -68,7 +68,7 @@ class BannerAdSubscriberController < ApplicationController
     due_amount = total_due price, duration
     user = banner_ad.user
 
-   
+  
     if verify_transaction due_amount, ref_no
       banner_subscription = banner_ad.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "banner ad created"}

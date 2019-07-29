@@ -49,7 +49,7 @@ class SubscriptionsController < ApplicationController
     duration = transaction.duration
     due_amount = total_due price, duration
     user = transaction.user
-   
+  
     if verify_transaction due_amount, ref_no
       subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*10, priorities: duration*15, max_post: duration*1000)
       if subscription.save
@@ -68,7 +68,7 @@ class SubscriptionsController < ApplicationController
     duration = transaction.duration
     due_amount = total_due price, duration
     user = transaction.user
-   
+  
     if verify_transaction due_amount, ref_no
       subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*20, priorities: duration*40, max_post: duration*1000)
       if subscription.save
@@ -88,7 +88,7 @@ class SubscriptionsController < ApplicationController
     duration = transaction.duration
     due_amount = total_due price, duration 
     user = transaction.user
-   
+  
     if verify_transaction due_amount, ref_no
       subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*30, priorities: duration*60, max_post: duration*1000)
       if subscription.save
@@ -108,9 +108,9 @@ class SubscriptionsController < ApplicationController
     duration = transaction.duration
     due_amount = price * duration 
     user = transaction.user
-   
+
     if verify_transaction due_amount, ref_no
-      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, priorities: duration)
+      subscription = user.build_subscription(priorities: duration)
       if subscription.save
         render json: { status: "additional priority successful"}
         transaction.update_attributes(status: "PAID")
@@ -129,9 +129,9 @@ class SubscriptionsController < ApplicationController
     duration = transaction.duration
     due_amount = price * duration 
     user = transaction.user
-   
+  
     if verify_transaction due_amount, ref_no
-      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, boost: duration)
+      subscription = user.build_subscription(boost: duration)
       if subscription.save
         render json: { status: "additional boost successful"}
         transaction.update_attributes(status: "PAID")

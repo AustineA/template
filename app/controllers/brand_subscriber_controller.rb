@@ -17,7 +17,7 @@ def partner brand
     due_amount = total_due price, duration
     user = brand.user
 
-   
+  
     if verify_transaction due_amount, ref_no
       brand_subscription = brand.update_attributes(expiring_date: Time.now + duration*30.day, status: "ACTIVE")
       render json: { status: "partner brand created"}
