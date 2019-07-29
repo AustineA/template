@@ -1,6 +1,6 @@
 class Forum < ApplicationRecord
 	before_create :generate_permalink
-
+  searchkick
   belongs_to :user
 	has_many :comments, dependent: :destroy
 
