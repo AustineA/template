@@ -13,6 +13,8 @@ json =  {
     posted_at: @forum.created_at.strftime( "%e %b. %y"),
     category: @forum.category,
     permalink: @forum.permalink,
+    user: "#{@forum.user.f_name} #{@forum.user.l_name}",
+    link_to_user: "/agents/#{@forum.user.username}",
     avatar: i
 }
 
@@ -27,6 +29,9 @@ json[:comments] = @forum.comments.map do |comment|
   {
     body: comment.body,
     permalink: "forums/#{@forum.permalink}/#{comment.id}",
+    user: "#{@forum.user.f_name} #{@forum.user.l_name}",
+    link_to_user: "/agents/#{comment.user.username}",
+    posted_at: comment.created_at.strftime( "%e %b. %y"),
     avatar: a
   }
 end

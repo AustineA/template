@@ -14,7 +14,8 @@
     category: forum.category,
     permalink: forum.permalink,
     avatar: i,
-    user: "#{forum.user.f_name} #{forum.user.l_name}"
+    user: "#{forum.user.f_name} #{forum.user.l_name}",
+    link_to_user: "/agents/#{forum.user.username}"
   }
 end
 
