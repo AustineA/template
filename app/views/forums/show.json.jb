@@ -48,7 +48,7 @@ json[:comments] = @forum.comments.map do |comment|
 
   {
     body: comment.body,
-    permalink: "forums/#{@forum.permalink}/#{comment.id}",
+    permalink: "forums/#{@forum.permalink}/comments/#{comment.id}",
     user: "#{comment.user.f_name} #{comment.user.l_name}",
     link_to_user: "/agents/#{comment.user.username}",
     posted_at: comment.created_at.strftime( "%e %b. %y"),
