@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     end
 
     get 'forum/filter', to: "forums#filter"
+    get 'forum/stats', to: "forums#stats"
     resources :forums do
       resources :comments
     end
