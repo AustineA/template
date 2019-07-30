@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_25_162420) do
+ActiveRecord::Schema.define(version: 2019_07_30_134926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -163,6 +163,7 @@ ActiveRecord::Schema.define(version: 2019_07_25_162420) do
     t.integer "priority", default: 0
     t.decimal "score", default: "0.0"
     t.datetime "promotion_updated_at"
+    t.integer "view_count", default: 0
     t.index ["permalink"], name: "index_posts_on_permalink"
     t.index ["reference_id"], name: "index_posts_on_reference_id"
     t.index ["user_id"], name: "index_posts_on_user_id"

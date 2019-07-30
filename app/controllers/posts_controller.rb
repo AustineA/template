@@ -9,7 +9,12 @@ class PostsController < ApplicationController
   end
 
   def show
-    @user = current_user
+
+    if current_user && (@post.user != current_user)
+      @post.update_attributes(view_count: @post.view_count+1)
+    else
+      @post.update_attributes(view_count: @post.view_count+1)
+    end
     render :show
   end
 

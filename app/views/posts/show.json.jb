@@ -33,7 +33,8 @@ json = {
   updated_at: @post.updated_at.strftime( "%e %b. %y"),
   save_url: "posts/#{@post.permalink}/markers",
   unsave_url: l,
-  saved: s
+  saved: s,
+  views: @post.view_count
 }
 
 if @post.user.avatar.attached?
