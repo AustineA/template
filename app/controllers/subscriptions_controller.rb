@@ -168,7 +168,7 @@ class SubscriptionsController < ApplicationController
     if duration >= 3 && duration < 6
       return (price * duration) - ((price * duration) * 5/100)
 
-    if duration >= 6 && duration < 12
+    elsif duration >= 6 && duration < 12
       return (price * duration) - ((price * duration) * 10/100)
 
     elsif duration >= 12
