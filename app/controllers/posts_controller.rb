@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 
   def search
     args = {}
+    args[:unpublish] = {not: true}
 
     args[:price] = {}
     args[:price][:gte] = params[:min_price] if params[:min_price].present?
@@ -109,7 +110,7 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:price, :duration, :street,:lga,:state,:area, :title, :purpose, :use_of_property, :type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link,:square_meters )
+      params.require(:post).permit(:price, :duration, :street,:lga,:state,:area, :title, :purpose, :use_of_property, :type_of_property, :bedrooms, :bathrooms, :toliets, :description, :video_link,:square_meters, :unpublish )
     end
 
 end

@@ -10,6 +10,8 @@ class SubscriptionsController < ApplicationController
     amount = transaction.amount
 
 		case 
+      when plan == "BASIC"
+        basic transaction
       when plan == "CLASSIC"
         classic transaction
 			when plan == "PRO"
@@ -42,6 +44,25 @@ class SubscriptionsController < ApplicationController
 
 
   private
+
+  def basic transaction
+    ref_no = transaction.ref_no
+    price = 2000
+    duration = transaction.duration
+    due_amount = total_due price, duration
+    user = transaction.user
+  
+    if verify_transaction due_amount, ref_no
+      subscription = user.build_subscription(plan: transaction.transaction_for, amount: due_amount, expiring_date: Time.now + duration*30.day, start_date: Time.now, boost: duration*5, priorities: duration*5, max_post: duration*1000)
+      if subscription.save
+        render json: { status: "subscription created"}
+        transaction.update_attributes(status: "PAID")
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
+      end
+    else
+      render json: { status: "unsuccessful", message: "Can not verify payment" }, status: :unprocessable_entity
+    end
+  end
 
   def classic transaction
     ref_no = transaction.ref_no
@@ -144,11 +165,14 @@ class SubscriptionsController < ApplicationController
 
 
   def total_due price, duration
-    if duration >= 6 && duration < 12
+    if duration >= 3 && duration < 6
       return (price * duration) - ((price * duration) * 5/100)
 
-    elsif duration >= 12
+    if duration >= 6 && duration < 12
       return (price * duration) - ((price * duration) * 10/100)
+
+    elsif duration >= 12
+      return (price * duration) - ((price * duration) * 15/100)
   
     else
       return price * duration

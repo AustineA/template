@@ -22,7 +22,7 @@ class ContactsController < ApplicationController
           @user = User.find_by_username(params[:contact][:owner])
           ContactMailer.contact_form(@user.email, @contact).deliver_later
         else
-          ContactMailer.contact_form('2dotsproperties@gmail.com', @contact).deliver_later
+          ContactMailer.contact_form('support@2dotsproperties.com', @contact).deliver_later
         end
         # puts params[:contact][:owner], "From created"
 
