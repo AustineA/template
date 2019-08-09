@@ -5,6 +5,7 @@ f = @contacts.map do |contact|
     phone: contact.phone,
     created_at: contact.created_at.strftime( "%e %b. %y"),
     body: contact.body,
+    delete_url: "contacts/#{contact.id}"
   }
 end
 

@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
     get 'admin', to: "admins#home"
     get 'admin/users', to: "admins#search_users"
+    get 'admin/plans', to: "admins#users_by_plan"
+    get 'admin/upgrade', to: "admins#upgrade"
     get 'admin/stats', to: "admins#users_stats"
     get 'admin/all-posts',  to: "admins#search_posts"
     get 'admin/reports', to: "admins#reported"

@@ -32,6 +32,7 @@ class AdminsController < ApplicationController
   def users_stats
     if current_user.admin
       @free = Subscription.where(plan: "FREE").count
+      @basic = Subscription.where(plan: "BASIC").count
       @classic = Subscription.where(plan: "CLASSIC").count
       @custom = Subscription.where(plan: "CUSTOM").count
       @pro = Subscription.where(plan: "PRO").count
@@ -64,6 +65,12 @@ class AdminsController < ApplicationController
     end
   end
 
+  def users_by_plan
+    @users = User.joins(:subscription).where(subscriptions: {plan: params[:plan]}).order(last_logged_in: :desc).paginate(:page => params[:page], :per_page => 12)
+    render :users
+  end
+  
+
 
 
   def search_posts
@@ -93,21 +100,40 @@ class AdminsController < ApplicationController
   end
 
 
-  # def upgrade_user
-  #   if current_user.admin
-  #     user = User.find_by(username: params[:id])
+  def upgrade
+    if current_user.admin
+      plan = params[:plan]
+      user = User.find_by_username( params[:username] )
 
-  #     sub = user.build_subscription(created_at: Time.now, max_post: 10, expiring_date: Time.now+30.day)
-  #     if sub.save
-  #       render json: { message: "Subscription created" }
-  #     else
-  #       render json: { message: "Subscription not created" }
-  #     end
-  #     UserMailer.welcome(user).deliver_later
-  #   else
-  #     render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
-  #   end
-  # end
+      case 
+        when plan == "CLASSIC"
+          value( plan, 5000, 10, 15, user )
+        when plan == "PRO"
+          value( plan, 12500, 20, 40, user )
+        when plan == "CUSTOM"
+          value( plan, 20000, 30, 60, user )
+        when plan == "BASIC"
+          value( plan, 2000, 5, 5, user )
+        else
+          render "Unknown plan"		
+      end
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
 
+
+  private
+
+  def value plan, amount, boost, priority, user
+    subscription = user.build_subscription( plan: plan, amount: amount, expiring_date: Time.now + 30.day, start_date: Time.now, boost: boost, priorities: priority, max_post: 1000 )
+    if subscription.save
+      render json: { status: "subscription created" }
+      transaction = user.transactions.build( amount: amount, transaction_for: plan, duration: 1, status: "PAID" )
+      if transaction.save
+        SubscriptionMailer.invoice(user, transaction, subscription).deliver_later
+      end
+    end
+  end
 
 end
