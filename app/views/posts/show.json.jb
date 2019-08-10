@@ -33,6 +33,7 @@ json = {
   updated_at: @post.updated_at.strftime( "%e %b. %y"),
   save_url: "posts/#{@post.permalink}/markers",
   unsave_url: l,
+  unpublished: post.unpublish,
   saved: s,
   views: @post.view_count
 }
