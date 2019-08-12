@@ -47,7 +47,6 @@ class AdminsController < ApplicationController
     if current_user.admin
       args = {}
 
-# where: { account_type: {not: ["INDIVIDUAL", "PROPERTY_OWNER"]} }
       args[:admin] = {not: true}
       args[:super_user] = {not: true}
       args[:account_type] = params[:account_type] if params[:account_type].present?
@@ -66,11 +65,87 @@ class AdminsController < ApplicationController
   end
 
   def users_by_plan
-    @users = User.joins(:subscription).where(subscriptions: {plan: params[:plan]}).order(last_logged_in: :desc).paginate(:page => params[:page], :per_page => 12)
-    render :users
+    if current_user.admin
+      @users = User.joins(:subscription).where(subscriptions: {plan: params[:plan]}).order(last_logged_in: :desc).paginate(:page => params[:page], :per_page => 12)
+      render :users
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
   end
   
 
+  def banners
+    if current_user.admin
+      @banner_ads = BannerAd.where(status: "ACTIVE").paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      render :banners
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
+
+
+  def new_banner
+    if current_user.admin
+      user = User.find_by_username(params[:username])
+      @banner_ad = user.banner_ads.build( 
+                                          url: params[:url], 
+                                          amount: params[:amount], 
+                                          duration: params[:duration],
+                                          banner_type: params[:banner_type],
+                                          sidebar_image: params[:sidebar_image],
+                                          home_image: params[:home_image],
+                                          home_mobile_image: params[:home_mobile_image],
+                                          listing_image: params[:listing_image],
+                                          listing_mobile_image: params[:listing_mobile_image]
+                                        )
+      if @banner_ad.save
+        render :show, status: :created
+      else
+        render json: @banner_ad.errors, status: :unprocessable_entity
+      end
+    else
+      render json:   { message: "You're not authorized to perform this action" }, status: :unauthorized
+    end
+  end
+
+
+  def search_banners
+    @result = BannerAd.ransack(ref_no_start: params[:q]).result(distinct: true)
+    @banner_ads = @result.paginate(:page => params[:page], :per_page => 8).order(:company)
+    render :banners
+  end
+
+  
+  def brands
+    if current_user.admin
+      @brands = Brand.home.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      render :brands
+    else
+      render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
+    end
+  end
+
+
+  def new_brand
+    if current_user.admin
+      user = User.find_by_username(params[:username])
+      @brand = user.brands.build(url: params[:url], amount: params[:amount], logo: params[:logo], duration: params[:duration])
+        if @brand.save
+          render :show, status: :created
+        else
+          render json: @brand.errors, status: :unprocessable_entity
+      end
+    else
+      render json:   { message: "You're not authorized to perform this action" }, status: :unauthorized
+    end
+  end
+
+
+  def search_brands
+    @result = Brand.ransack(ref_no_start: params[:q]).result(distinct: true)
+    @banner_ads = @result.paginate(:page => params[:page], :per_page => 8).order(:company)
+    render :banners
+  end
 
 
   def search_posts

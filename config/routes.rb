@@ -19,10 +19,15 @@ Rails.application.routes.draw do
     get 'admin/upgrade', to: "admins#upgrade"
     get 'admin/stats', to: "admins#users_stats"
     get 'admin/all-posts',  to: "admins#search_posts"
+    get 'admin/all-banners',  to: "admins#banners"
+    get 'admin/all-brands',  to: "admins#brands"
     get 'admin/reports', to: "admins#reported"
     get 'admin/all', to: "admins#admins"
     get 'admin/verify', to: "admins#verify_admin"
     get 'admin/make-admin/:id', to: "users#make_admin"
+    post 'admin/brands',  to: "admins#new_brand"
+    post 'admin/banners',  to: "admins#new_banner"
+
 
     resources :transactions
 

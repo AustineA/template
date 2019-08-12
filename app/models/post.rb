@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 	searchkick
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')
 
-	scope :scorable, -> { where("score > ?", 0) }
+	scope :scorable, -> { where("score > ?", 0).where.not(unpublish: true) }
 
 	def self.thumbnail_options
 		{ 

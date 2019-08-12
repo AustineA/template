@@ -29,3 +29,4 @@
 #Development Tooling
 .vscode/settings.json
 .vscode/upload.js
+*.vscode
