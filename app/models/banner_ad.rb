@@ -18,6 +18,6 @@ class BannerAd < ApplicationRecord
 	end
 
   def generate_reference
-  	self.update_attributes(ref_no: "BA-#{rand(36**16).to_s(26).upcase}", expiring_date: Time.now)
+  	self.update_attributes(ref_no: "BA-#{rand(36**16).to_s(26).upcase}")
 	end
 end

@@ -16,6 +16,6 @@ class Brand < ApplicationRecord
 	end
 
   def generate_reference
-  	self.update_attributes(ref_no: "PB-#{rand(36**16).to_s(26).upcase}", expiring_date: Time.now)
+  	self.update_attributes(ref_no: "PB-#{rand(36**16).to_s(26).upcase}")
 	end
 end

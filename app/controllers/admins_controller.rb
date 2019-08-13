@@ -76,7 +76,12 @@ class AdminsController < ApplicationController
 
   def banners
     if current_user.admin
-      @banner_ads = BannerAd.where(status: "ACTIVE").paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      if params[:q].present?
+        @result = BannerAd.ransack(ref_no_start: params[:q]).result(distinct: true)
+        @banner_ads = @result.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      else
+        @banner_ads = BannerAd.where(status: "ACTIVE").paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      end
       render :banners
     else
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
@@ -87,19 +92,24 @@ class AdminsController < ApplicationController
   def new_banner
     if current_user.admin
       user = User.find_by_username(params[:username])
+      duration = params[:duration]
+      exp = Time.now + duration.to_i * 30.day
       @banner_ad = user.banner_ads.build( 
                                           url: params[:url], 
                                           amount: params[:amount], 
-                                          duration: params[:duration],
+                                          duration: duration,
                                           banner_type: params[:banner_type],
                                           sidebar_image: params[:sidebar_image],
                                           home_image: params[:home_image],
                                           home_mobile_image: params[:home_mobile_image],
                                           listing_image: params[:listing_image],
-                                          listing_mobile_image: params[:listing_mobile_image]
+                                          listing_mobile_image: params[:listing_mobile_image],
+                                          expiring_date: exp,
+                                          status: "ACTIVE"
                                         )
       if @banner_ad.save
-        render :show, status: :created
+        render json: { message: "Created" }, status: :created
+        SubscriptionMailer.bannerAd(user, @banner_ads).deliver_later
       else
         render json: @banner_ad.errors, status: :unprocessable_entity
       end
@@ -109,16 +119,15 @@ class AdminsController < ApplicationController
   end
 
 
-  def search_banners
-    @result = BannerAd.ransack(ref_no_start: params[:q]).result(distinct: true)
-    @banner_ads = @result.paginate(:page => params[:page], :per_page => 8).order(:company)
-    render :banners
-  end
-
   
   def brands
     if current_user.admin
-      @brands = Brand.home.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      if params[:q].present?
+        @result = Brand.ransack(ref_no_start: params[:q]).result(distinct: true)
+        @brands = @result.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      else
+        @brands = Brand.home.paginate(:page => params[:page], :per_page => 8).order(created_at: :desc)
+      end
       render :brands
     else
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
@@ -129,22 +138,25 @@ class AdminsController < ApplicationController
   def new_brand
     if current_user.admin
       user = User.find_by_username(params[:username])
-      @brand = user.brands.build(url: params[:url], amount: params[:amount], logo: params[:logo], duration: params[:duration])
+      duration = params[:duration]
+      exp = Time.now + duration.to_i * 30.day
+      @brand = user.brands.build( 
+                                  url: params[:url],
+                                  amount: params[:amount],
+                                  logo: params[:logo],
+                                  duration: duration,
+                                  status:"ACTIVE",
+                                  expiring_date: exp
+                                )
         if @brand.save
-          render :show, status: :created
+          render json: { message: "Created" }, status: :created
+          SubscriptionMailer.brand(user, @brand).deliver_later
         else
           render json: @brand.errors, status: :unprocessable_entity
       end
     else
       render json:   { message: "You're not authorized to perform this action" }, status: :unauthorized
     end
-  end
-
-
-  def search_brands
-    @result = Brand.ransack(ref_no_start: params[:q]).result(distinct: true)
-    @banner_ads = @result.paginate(:page => params[:page], :per_page => 8).order(:company)
-    render :banners
   end
 
 
