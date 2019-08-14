@@ -4,7 +4,7 @@ class ContactMailer < ApplicationMailer
     @email = email
     @contact = contact
 
-    mail(to: @email, subject: "#{@contact.name} sent you a messgae from - 2Dots Properties")
+    mail(to: @email, subject: "#{@contact.name} sent you a message from - 2Dots Properties")
   end
 
 end
