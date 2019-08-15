@@ -40,6 +40,7 @@ class PromoteController < ApplicationController
         subscription.update_attributes(priorities: remaining_priorities - priority)
         priority_count = current_user.posts.where("priority > ?", 0).size
         current_user.update_attributes(priority_count: priority_count)
+        render json: { message: "Your priority listing was successful" }
       else
         render json: { message: "You can only set 1 priority listing for this post" }
       end
@@ -58,6 +59,7 @@ class PromoteController < ApplicationController
           subscription.update_attributes(boost: remaining_boost - boost)
           boost_count = current_user.posts.where("boost > ?", 0).size
           current_user.update_attributes(boost_count: boost_count)
+          render json: { message: "Your priority boost was successful" }
         else
           render json: { message: "You can only set 4 priority boosts for this post" }
         end
