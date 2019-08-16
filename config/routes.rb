@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get 'admin/all', to: "admins#admins"
     get 'admin/verify', to: "admins#verify_admin"
     get 'admin/make-admin/:id', to: "users#make_admin"
+    get 'admin/verify-agent/:id', to: "users#verify_agent"
+    get 'admin/verified-agents', to: "admins#verified_agents"
     post 'admin/brands',  to: "admins#new_brand"
     post 'admin/banners',  to: "admins#new_banner"
 

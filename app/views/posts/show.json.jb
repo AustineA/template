@@ -52,7 +52,8 @@ if @post.user.address
     company: @post.user.company,
     account_type: @post.user.account_type,
     url: "/#{@post.user.username}",
-    address: "#{@post.user.address["street"]}, #{@post.user.address["city"]}, #{@post.user.address["state"]}."
+    address: "#{@post.user.address["street"]}, #{@post.user.address["city"]}, #{@post.user.address["state"]}.",
+    verified: @post.user.verified
   }
 end
 

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose, :destroy_avatar, :make_admin]
+  before_action :set_user, only: [:show, :update, :destroy, :agents, :purpose, :destroy_avatar, :make_admin, :verify_agent]
   before_action :authenticate_user, only: [:update, :show, :verify_user, :user_stats, :change_password]
 
   def index
@@ -87,6 +87,15 @@ class UsersController < ApplicationController
   def make_admin
     if current_user.super_user
       @user.update_attributes(admin: true)
+    else
+      render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
+    end
+  end
+
+  def verify_agent
+    if current_user.admin
+      status = params[:status]
+      @user.update_attributes(verified: status)
     else
       render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end

@@ -72,6 +72,15 @@ class AdminsController < ApplicationController
       render json:   { message: "You're not authorized to access this resource" }, status: :unauthorized
     end
   end
+
+  def verified_agents
+    if current_user.admin
+      @users = User.where(verified: true).paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
+      render :users
+    else
+      render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
+    end
+  end
   
 
   def banners
