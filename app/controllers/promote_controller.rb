@@ -21,9 +21,9 @@ class PromoteController < ApplicationController
 
     case 
         when listing == "BOOST"
-          boost_listing( boost, max_boost, remaining_boost, current_boost, score, post, subscription )
+          boost_listing( boost, max_boost, remaining_boost, current_boost, score, post, subscription, current_priority )
         when listing == "PRIORITY"
-          priority_listing( priority, max_priority, remaining_priorities, current_priority, score, post, subscription, current_priority )
+          priority_listing( priority, max_priority, remaining_priorities, current_priority, score, post, subscription )
         else
           render "Unknown plan"		
     end
@@ -40,34 +40,34 @@ class PromoteController < ApplicationController
         subscription.update_attributes(priorities: remaining_priorities - priority)
         priority_count = current_user.posts.where("priority > ?", 0).size
         current_user.update_attributes(priority_count: priority_count)
-        render json: { message: "Your priority listing was successful" }
+        render json: { message: "Your priority listing was successful",  priority: new_priority }
       else
-        render json: { message: "You can only set 1 priority listing for this post" }
+        render json: { message: "You can only set 1 priority listing for this post" }, status: :forbidden
       end
     else
-      render json: { message: "You've ran out priority listings" }
+      render json: { message: "You've ran out priority listings" }, status: :forbidden
     end
   end
 
 
   def boost_listing( boost, max_boost, remaining_boost, current_boost, score, post, subscription, current_priority )
     if remaining_boost > 0
-      if current_priority > 1
-        if ( boost <= max_boost  && ( current_boost + priority  <= max_boost ) )
+      if current_priority > 0
+        if ( boost <= max_boost  && ( current_boost + boost  <= max_boost ) )
           new_boost = current_boost + boost
           post.update_attributes(boost: new_boost, score: score + boost, promotion_updated_at: Time.now)
           subscription.update_attributes(boost: remaining_boost - boost)
           boost_count = current_user.posts.where("boost > ?", 0).size
           current_user.update_attributes(boost_count: boost_count)
-          render json: { message: "Your priority boost was successful" }
+          render json: { message: "Your priority boost was successful",  boost: new_boost}
         else
-          render json: { message: "You can only set 4 priority boosts for this post" }
+          render json: { message: "You can only set 4 priority boosts for this post" }, status: :forbidden
         end
       else
-        render json: { message: "You must have priority listing set before you can boost this post" }
+        render json: { message: "You must have priority listing set before you can boost this post" }, status: :forbidden
       end
     else
-      render json: { message: "You've ran out priority boosts" }
+      render json: { message: "You've ran out priority boosts" }, status: :forbidden
     end
   end
 
