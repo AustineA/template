@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     end
 
     resources :contacts
+    resources :verify_users
     
     resources :posts, :path=> '', except: [:index]
     get 'q/search', to: 'posts#search'

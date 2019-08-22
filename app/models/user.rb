@@ -10,6 +10,7 @@ class User < ApplicationRecord
 	has_many :forums, dependent: :destroy
 	has_many :comments, dependent: :destroy
 	has_one :subscription, dependent: :destroy
+	has_many :verify_users, dependent: :destroy
 	has_one_attached :avatar
 	searchkick
 	validates :username, presence: true, :uniqueness => true

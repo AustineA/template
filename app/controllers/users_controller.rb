@@ -85,8 +85,9 @@ class UsersController < ApplicationController
   end
 
   def make_admin
+    status = params[:status] if params[:status].present?
     if current_user.super_user
-      @user.update_attributes(admin: true)
+      @user.update_attributes(admin: status)
     else
       render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
     end
