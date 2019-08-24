@@ -5,9 +5,9 @@ class VerifyUsersController < ApplicationController
     def index
       if params[:q].present?
       @result = VerifyUser.ransack(user_email_start: params[:q]).result(distinct: true)
-      @verify_users = @result.paginate(:page => params[:page], :per_page => 8).order(:company)
+      @verify_users = @result.paginate(:page => params[:page], :per_page => 8).order(updated_at: :desc)
       else
-        @verify_users = VerifyUser.paginate(:page => params[:page], :per_page => 8).order("RANDOM()")
+        @verify_users = VerifyUser.paginate(:page => params[:page], :per_page => 8).order(updated_at: :desc)
       end
       render :index
     end
@@ -19,7 +19,7 @@ class VerifyUsersController < ApplicationController
       @verify_user= current_user.verify_users.build(verify_user_params)
   
       if @verify_user.save
-        render :show, status: :created
+        render json: {message: "Created"}, status: :created
       else
         render json: @verify_user.errors, status: :unprocessable_entity
       end
@@ -45,6 +45,6 @@ class VerifyUsersController < ApplicationController
     end
   
     def verify_user_params
-      params.require(:verify_user).permit(:cac, :id_card, :bill)
+      params.require(:verify_user).permit(:cac, :bill)
     end
 end

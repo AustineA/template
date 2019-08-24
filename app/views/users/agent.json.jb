@@ -5,7 +5,8 @@ json = {
   about: @user.about,
   email: @user.email,
   verified: @user.verified,
-  is_admin: @user.admin
+  is_admin: @user.admin,
+  is_super: @user.super_user
 }
 
 json[:location] = "#{@user.address['street']}, #{@user.address['city']}, #{@user.address['state']}. Nigeria" if @user.address

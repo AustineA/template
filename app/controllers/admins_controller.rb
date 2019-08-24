@@ -75,7 +75,7 @@ class AdminsController < ApplicationController
 
   def verified_agents
     if current_user.admin
-      @users = User.where(verified: true).paginate(:page => params[:page], :per_page => 12).order(created_at: :desc)
+      @users = User.where(verified: true).paginate(:page => params[:page], :per_page => 12).order(last_logged_in: :desc)
       render :users
     else
       render json:   { message: "You're not authorized to carry out this action" }, status: :unauthorized
