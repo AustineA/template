@@ -1,6 +1,7 @@
 json = {
     name: "#{@verify_user.user.f_name} #{@verify_user.user.l_name}",
     email: @verify_user.user.email,
+    username: @verify_user.user.username,
     permalink: "/verify_users/#{@verify_user.id}",
     phone:  @verify_user.user.phone,
     created_at: @verify_user.created_at.strftime("%e %b. %y. - %l:%M %P")
