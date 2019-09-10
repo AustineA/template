@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 	has_many_attached :images
 	has_many :markers, dependent: :destroy
 	belongs_to :user, :counter_cache => true
+	validates :permalink, :uniqueness => true
+
 	searchkick
 	WATERMARK_PATH = Rails.root.join('lib', 'assets', 'images', '2dots-watermark.png')
 

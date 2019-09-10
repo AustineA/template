@@ -61,7 +61,7 @@ class PostsController < ApplicationController
                 @user.subscription.update_attributes(max_post: max_post -1 )
                 render :created, status: :created
             else
-              render json: @post.errors, status: :unprocessable_entity
+              render json: @post.errors.full_messages, status: :unprocessable_entity
             end
         else
           response = {status: "Please attach an image and try again"}
