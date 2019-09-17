@@ -1,5 +1,5 @@
 task :clear_promotion => :environment do
-  subs = Post.where("score > ?" 0 )
+  subs = Post.where("score > ?", 0 )
   subs.each do |post|
     puts "#{subs.size}"
     if post.user.subscription && post.user.subscription.expiring_date == nil
