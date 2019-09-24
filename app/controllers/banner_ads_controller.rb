@@ -1,7 +1,7 @@
 class BannerAdsController < ApplicationController
   before_action :set_banner_ad, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index, :update, :destroy]
-  before_action :authenticate_user
+  before_action :authenticate_user, except: [:banner]
 
   
     def index
@@ -14,6 +14,21 @@ class BannerAdsController < ApplicationController
 
     end
   
+    def banner
+      banner_type = params[:type] if params[:type].present?
+
+      case 
+        when banner_type == "SMALL"
+          @banner = BannerAd.small.order("RANDOM()").first
+        when banner_type == "MEDIUM"
+          @banner = BannerAd.medium.order("RANDOM()").first
+        when banner_type == "LARGE"
+          @banner = BannerAd.large.order("RANDOM()").first
+        else
+          render json: {message: "Unknown Banner"}
+      end
+    end
+
     def show
     end
   

@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
     resources :banner_ads, except: [:index]
     get 'banner_ads/users/:id', to: 'banner_ads#index'
+    get 'banner-promo', to: 'banner_ads#banner'
     get 'brands/all', to: 'brands#brands'
     get 'brands/users/:id', to: 'brands#index'
     resources :brands, except: [:index]

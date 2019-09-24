@@ -7,6 +7,12 @@ class BannerAd < ApplicationRecord
   belongs_to :user
   after_create :generate_reference
 
+  scope :small, -> { where(status: "ACTIVE", banner_type: "SMALL") }
+	scope :medium, -> { where(status: "ACTIVE", banner_type: "MEDIUM") }
+	scope :large, -> { where(status: "ACTIVE", banner_type: "LARGE") }
+  
+
+
   def self.banner_ad
 		{   
       strip: true,
