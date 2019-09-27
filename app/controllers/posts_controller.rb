@@ -47,7 +47,7 @@ class PostsController < ApplicationController
 
     query = params[:q].presence || "*"
 
-    @posts =  Post.search query, order: { score: :desc, promotion_updated_at: :desc}, fields: [:description, :lga, :state, :area, :tags, :reference_id], where: args, aggs: { purpose: {}, type_of_property: {}, use_of_property: {}, price: {}, bedrooms: {}, bathrooms: {}, state:{}, lga:{}}, page: params[:page], per_page: 8
+    @posts =  Post.search query, order: { score: :desc, promotion_updated_at: :desc}, fields: [:lga, :state, :area, :tags, :reference_id], where: args, aggs: { purpose: {}, type_of_property: {}, use_of_property: {}, price: {}, bedrooms: {}, bathrooms: {}, state:{}, lga:{}}, page: params[:page], per_page: 8
     render :index
 
   end
