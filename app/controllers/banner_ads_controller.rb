@@ -18,13 +18,10 @@ class BannerAdsController < ApplicationController
       banner_type = params[:type] if params[:type].present?
       case 
         when banner_type == "SMALL"
-          random_offset = BannerAd.small.count
           @banner = BannerAd.small.sample(1).first
         when banner_type == "MEDIUM"
-          random_offset = BannerAd.medium.count
           @banner = BannerAd.medium.sample(1).first
         when banner_type == "LARGE"
-          random_offset = BannerAd.large.count
           @banner = BannerAd.large.sample(1).first
         else
           render json: {message: "Unknown Banner"}
