@@ -1,21 +1,28 @@
 
-  d = if @banner.banner_type == "SMALL"
+  d = if @banner.present?
+  if @banner.banner_type == "SMALL"
         url_for(@banner.sidebar_image.variant(combine_options: BannerAd.banner_ad))
       elsif @banner.banner_type == "MEDIUM"
         url_for(@banner.listing_image.variant(combine_options: BannerAd.banner_ad))
       elsif @banner.banner_type == "LARGE"
         url_for(@banner.home_image.variant(combine_options: BannerAd.banner_ad))
     end
+  end
 
-  m = if @banner.banner_type == "MEDIUM"
+  m = if  @banner.present?
+  if @banner.banner_type == "MEDIUM"
         url_for(@banner.listing_mobile_image.variant(combine_options: BannerAd.banner_ad))
       elsif @banner.banner_type == "LARGE"
         url_for(@banner.home_mobile_image.variant(combine_options: BannerAd.banner_ad))
     end
+  end
 
+  u = if @banner.present?
+    @banner.url
+  end
 
 json = {
-  url: @banner.url,
+  url: u,
   desktop: d,
   mobile: m
 }

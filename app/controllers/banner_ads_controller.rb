@@ -18,11 +18,14 @@ class BannerAdsController < ApplicationController
       banner_type = params[:type] if params[:type].present?
       case 
         when banner_type == "SMALL"
-          @banner = BannerAd.small.sample(1).first
+          small_banner = BannerAd.small
+          @banner = small_banner.sample(1).first if small_banner.present?
         when banner_type == "MEDIUM"
-          @banner = BannerAd.medium.sample(1).first
+          medium_banner = BannerAd.medium
+          @banner = medium_banner.sample(1).first if medium_banner.present?
         when banner_type == "LARGE"
-          @banner = BannerAd.large.sample(1).first
+          large_banner = BannerAd.large
+          @banner = large_banner.sample(1).first if large_banner.present?
         else
           render json: {message: "Unknown Banner"}
       end
