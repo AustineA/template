@@ -28,6 +28,7 @@ class PostsController < ApplicationController
 
 
     args[:bedrooms] = {}
+    args[:bedrooms] = params[:bedrooms] if params[:bedrooms].present?
     args[:bedrooms][:gte] = params[:min_bedrooms] if params[:min_bedrooms].present?
     args[:bedrooms][:lte] = params[:max_bedrooms] if params[:max_bedrooms].present?
 

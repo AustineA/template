@@ -1,28 +1,21 @@
-
-  d = if @banner.present?
-  if @banner.banner_type == "SMALL"
-        url_for(@banner.sidebar_image.variant(combine_options: BannerAd.banner_ad))
-      elsif @banner.banner_type == "MEDIUM"
-        url_for(@banner.listing_image.variant(combine_options: BannerAd.banner_ad))
-      elsif @banner.banner_type == "LARGE"
-        url_for(@banner.home_image.variant(combine_options: BannerAd.banner_ad))
+@banner.map do | banner |
+  d = if banner.banner_type == "SMALL" && banner.sidebar_image.attached?
+        url_for(banner.sidebar_image.variant(combine_options: BannerAd.banner_ad))
+      elsif banner.banner_type == "MEDIUM" && banner.listing_image.attached?
+        url_for(banner.listing_image.variant(combine_options: BannerAd.banner_ad))
+      elsif banner.banner_type == "LARGE" && banner.home_image.attached?
+        url_for(banner.home_image.variant(combine_options: BannerAd.banner_ad))
     end
-  end
 
-  m = if  @banner.present?
-  if @banner.banner_type == "MEDIUM"
-        url_for(@banner.listing_mobile_image.variant(combine_options: BannerAd.banner_ad))
-      elsif @banner.banner_type == "LARGE"
-        url_for(@banner.home_mobile_image.variant(combine_options: BannerAd.banner_ad))
+  m = if banner.banner_type == "MEDIUM" && banner.listing_mobile_image.attached?
+        url_for(banner.listing_mobile_image.variant(combine_options: BannerAd.banner_ad))
+      elsif banner.banner_type == "LARGE" && banner.home_mobile_image.attached?
+        url_for(banner.home_mobile_image.variant(combine_options: BannerAd.banner_ad))
     end
-  end
 
-  u = if @banner.present?
-    @banner.url
-  end
-
-json = {
-  url: u,
-  desktop: d,
-  mobile: m
-}
+  {
+    url: banner.url,
+    desktop: d,
+    mobile: m
+  }
+end
