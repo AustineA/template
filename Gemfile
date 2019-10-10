@@ -18,6 +18,7 @@ gem 'jb'
 gem 'searchkick'
 gem 'will_paginate', '~> 3.1', '>= 3.1.7'
 gem 'httparty', '~> 0.13.7'
+gem 'sitemap_generator'
 # gem 'ransack'
 gem 'ransack', github: 'activerecord-hackery/ransack'
 
