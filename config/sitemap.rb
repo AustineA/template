@@ -13,6 +13,36 @@ fog_region: 'eu-west-2'
 SitemapGenerator::Sitemap.sitemaps_host = "https://2dots.s3.amazonaws.com"
 
 SitemapGenerator::Sitemap.create do
+    add "/search/commercial-properties-for-sale-in-abuja", :changefreq => 'weekly'
+    add "/search/commercial-properties-for-sale-in-portharcourt", :changefreq => 'weekly'
+    add "/search/commercial-property-for-sale-in-lagos", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-rent-in-abuja", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-rent-in-lagos", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-rent-in-lekki", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-rent-in-portharcourt", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-sale-in-abuja", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-sale-in-lagos", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-sale-in-lekki", :changefreq => 'weekly'
+    add "/search/flats-and-apartments-for-sale-in-portharcourt", :changefreq => 'weekly'
+    add "/search/houses-for-rent-in-abuja", :changefreq => 'weekly'
+    add "/search/houses-for-rent-in-lagos", :changefreq => 'weekly'
+    add "/search/houses-for-rent-in-lekki", :changefreq => 'weekly'
+    add "/search/houses-for-rent-in-portharcourt", :changefreq => 'weekly'
+    add "/search/houses-for-sale-in-abuja", :changefreq => 'weekly'
+    add "/search/houses-for-sale-in-lagos", :changefreq => 'weekly'
+    add "/search/houses-for-sale-in-lekki", :changefreq => 'weekly'
+    add "/search/houses-for-sale-in-portharcourt", :changefreq => 'weekly'
+    add "/search/lands-for-sale-in-abuja", :changefreq => 'weekly'
+    add "/search/lands-for-sale-in-lagos", :changefreq => 'weekly'
+    add "/search/lands-for-sale-in-lekki", :changefreq => 'weekly'
+    add "/search/lands-for-sale-in-portharcourt", :changefreq => 'weekly'
+    add "/search/new-developments-properties-for-sale-in-lagos", :changefreq => 'weekly'
+    add "/search/properties-for-sale-in-abuja", :changefreq => 'weekly'
+    add "/search/properties-for-sale-in-Lagos", :changefreq => 'weekly'
+    add "/search/properties-in-nigeria", :changefreq => 'weekly'
+    add "/search/properties-in-port-harcourt", :changefreq => 'weekly'
+    add "/search/shortlets-flats-and-apartments-in-lekki", :changefreq => 'weekly'
+
   # Add all posts:
     Post.find_each do |post|
       add "/#{post.permalink}", :lastmod => post.updated_at

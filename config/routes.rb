@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get '/sitemap', to: 'pages#sitemap'
+  get '/sitemap.xml', to: 'pages#sitemap_xml'
   post 'user_token' => 'user_token#create'
   defaults format: 'json' do
     patch 'users/change-password', to: 'users#change_password'
