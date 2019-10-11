@@ -13,6 +13,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'rack-cors'
 gem 'mini_magick'
 gem 'aws-sdk-s3', require: false
+gem 'fog-aws'
 gem 'jbuilder' 
 gem 'jb'
 gem 'searchkick'
