@@ -45,7 +45,7 @@ SitemapGenerator::Sitemap.create do
 
   # Add all posts:
     Post.find_each do |post|
-      add "/#{post.permalink}", :lastmod => post.updated_at
+      add "/properties/#{post.permalink}", :lastmod => post.updated_at
     end
 
   # Add all forum post:
